@@ -1,0 +1,35 @@
+---
+import { navigation } from '@/config/site';
+const path = Astro.url.pathname;
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="NodeHunt home"><span class="brand-mark">N</span><span>NodeHunt</span></a>
+    <nav aria-label="Primary navigation" class="desktop-nav">
+      {navigation.map((item) => <a class:list={{ active: path.startsWith(item.href) }} href={item.href}>{item.label}</a>)}
+    </nav>
+    <div class="header-actions">
+      <a class="search-link" href="/search/" aria-label="Search NodeHunt">⌕ <span>Search</span></a>
+      <button class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">◐</button>
+      <details class="mobile-nav"><summary aria-label="Open navigation">Menu</summary><nav aria-label="Mobile navigation">{navigation.map((item) => <a href={item.href}>{item.label}</a>)}<a href="/search/">Search</a></nav></details>
+    </div>
+  </div>
+</header>
+<script>
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  const saved = localStorage.getItem('nodehunt-theme');
+  if (saved === 'light' || saved === 'dark') root.dataset.theme = saved;
+  const update = () => button?.setAttribute('aria-pressed', String(root.dataset.theme === 'light'));
+  update();
+  button?.addEventListener('click', () => { root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light'; localStorage.setItem('nodehunt-theme', root.dataset.theme); update(); });
+</script>
+<style>
+  .site-header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid color-mix(in srgb, var(--line) 85%, transparent); background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(14px); }
+  .header-inner { display: flex; min-height: 4.7rem; align-items: center; justify-content: space-between; gap: 1.25rem; }
+  .brand { display: inline-flex; align-items: center; gap: .55rem; font: 800 1.2rem var(--font-display); text-decoration: none; }
+  .brand:hover { color: var(--text); }.brand-mark { display: grid; width: 1.75rem; height: 1.75rem; place-items: center; border-radius: .55rem; background: linear-gradient(135deg,var(--accent),var(--violet)); color: #07150f; font-size: 1rem; }
+  .desktop-nav { display:flex; gap:1.15rem; font-size:.9rem; font-weight:700; }.desktop-nav a { color:var(--muted); text-decoration:none; }.desktop-nav a.active,.desktop-nav a:hover { color:var(--text); }
+  .header-actions { display:flex; align-items:center; gap:.5rem; }.search-link,.theme-toggle { min-height:2.5rem; border:1px solid var(--line); border-radius:.6rem; background:var(--surface); color:var(--text); padding:.45rem .7rem; text-decoration:none; cursor:pointer; }.search-link { font-size:.85rem; }.mobile-nav { display:none; position:relative; }.mobile-nav summary { cursor:pointer; list-style:none; padding:.45rem .25rem; font-weight:700; }.mobile-nav nav { position:absolute; right:0; top:2.4rem; display:grid; min-width:12rem; padding:.5rem; border:1px solid var(--line); border-radius:.75rem; background:var(--surface); box-shadow:0 1rem 3rem #0004; }.mobile-nav a { padding:.65rem; text-decoration:none; }
+  @media(max-width: 780px) { .desktop-nav,.search-link { display:none; }.mobile-nav { display:block; } }
+</style>

@@ -1,0 +1,27 @@
+---
+import { siteConfig } from '@/config/site';
+interface Props { title?: string; description?: string; canonical?: string; noindex?: boolean; image?: string; type?: 'website' | 'article'; jsonLd?: Record<string, unknown>; }
+const { title, description = siteConfig.description, canonical, noindex = false, image, type = 'website', jsonLd } = Astro.props;
+const pageTitle = title ? `${title} | ${siteConfig.name}` : `${siteConfig.name} | Web3 infrastructure, decoded`;
+const url = canonical ? new URL(canonical, siteConfig.url).toString() : new URL(Astro.url.pathname, siteConfig.url).toString();
+const socialImage = image ? new URL(image, siteConfig.url).toString() : new URL('/images/og-default.svg', siteConfig.url).toString();
+const safeJsonLd = jsonLd ? JSON.stringify(jsonLd).replace(/</g, '\\u003c') : null;
+---
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={url} />
+{noindex && <meta name="robots" content="noindex,follow" />}
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteConfig.name} />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={url} />
+<meta property="og:image" content={socialImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={socialImage} />
+<meta name="theme-color" content="#090b12" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="alternate" type="application/rss+xml" title={`${siteConfig.name} RSS`} href="/rss.xml" />
+{safeJsonLd && <script type="application/ld+json" set:html={safeJsonLd} />}

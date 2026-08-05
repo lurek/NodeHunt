@@ -1,0 +1,15 @@
+---
+import type { MarkdownHeading } from 'astro';
+interface Props { headings: MarkdownHeading[]; maxDepth?: number; }
+const { headings, maxDepth = 3 } = Astro.props;
+const toc = headings.filter((heading) => heading.depth >= 2 && heading.depth <= maxDepth);
+---
+{toc.length >= 3 && <nav class="toc" aria-label="Table of contents"><h2 class="toc-title">In this guide</h2><ol>{toc.map((heading) => <li class:list={{ sub: heading.depth > 2 }}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></nav>}
+<style>
+  .toc { margin: 2.5rem 0; padding: 1.15rem 1.25rem; border: 1px solid var(--line); border-radius: .85rem; background: var(--surface); }
+  .toc-title { margin: 0; font: 800 .82rem var(--font-display); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .toc ol { margin: .7rem 0 0; padding-left: 1.15rem; }
+  .toc li { margin: .25rem 0; }
+  .toc .sub { margin-left: .7rem; }
+  .toc a { color: var(--muted); }
+</style>

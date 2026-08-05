@@ -1,0 +1,27 @@
+---
+interface Props { title: string; url: string; }
+const { title, url } = Astro.props;
+const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
+const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+---
+<aside class="share" aria-label="Share this article"><span class="share-label">Share</span><a class="share-link" href={xUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on X">X</a><a class="share-link" href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">LinkedIn</a><button class="share-link" type="button" data-copy-link>Copy link</button><span class="copy-status" role="status" aria-live="polite"></span></aside>
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-copy-link]');
+  const status = document.querySelector<HTMLElement>('.copy-status');
+  button?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      if (status) status.textContent = 'Link copied';
+    } catch {
+      if (status) status.textContent = 'Could not copy';
+    }
+  });
+</script>
+<style>
+  .share { display: flex; align-items: center; gap: .5rem; margin: 2.5rem 0; }
+  .share-label { margin-right: .25rem; color: var(--muted); font: 800 .78rem var(--font-display); letter-spacing: .08em; text-transform: uppercase; }
+  .share-link { min-height: 2.25rem; padding: .4rem .8rem; border: 1px solid var(--line); border-radius: .6rem; background: var(--surface); color: var(--text); font-size: .85rem; font-weight: 800; text-decoration: none; cursor: pointer; }
+  .share-link:hover { border-color: var(--accent); }
+  .copy-status { color: var(--accent); font-size: .82rem; }
+  .copy-status:empty { display: none; }
+</style>

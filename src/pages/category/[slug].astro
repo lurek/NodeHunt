@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ArticleCard from '@/components/cards/ArticleCard.astro';
+import BottomBannerAd from '@/components/ads/BottomBannerAd.astro';
+import { getPublishedSummaries, getTaxonomyLookup, humanize, type PostSummary } from '@/utils/content';
+interface Props { posts: PostSummary[]; name: string; description?: string; }
+export async function getStaticPaths() {
+  const taxonomy = await getTaxonomyLookup();
+  const summaries = await getPublishedSummaries(taxonomy);
+  const slugs = [...new Set(summaries.map((summary) => summary.category.slug))];
+  return slugs.map((slug) => ({
+    params: { slug },
+    props: {
+      posts: summaries.filter((summary) => summary.category.slug === slug),
+      name: taxonomy.categories.get(slug)?.name ?? humanize(slug),
+      description: taxonomy.categories.get(slug)?.description,
+    },
+  }));
+}
+const { posts, name, description } = Astro.props;
+---
+<BaseLayout title={name} description={description}><section class="container archive"><p class="eyebrow">Category</p><h1>{name}</h1>{description && <p class="archive-desc">{description}</p>}<div class="grid">{posts.map((post) => <ArticleCard {post} />)}</div><BottomBannerAd /></section></BaseLayout><style>.archive{padding:4rem 0}.archive h1{text-transform:capitalize;font:800 clamp(2.5rem,5vw,4rem)/1 var(--font-display)}.archive-desc{max-width:43rem;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}@media(max-width:700px){.grid{grid-template-columns:1fr}}</style>

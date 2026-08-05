@@ -1,0 +1,69 @@
+media:
+  input: src/assets/content
+  output: /src/assets/content
+content:
+  - name: news
+    label: News
+    type: collection
+    path: src/content/posts/news
+    filename: '{primary}.md'
+    view: { primary: title, sort: [publishedAt, title], default: { draft: true } }
+    fields: &post_fields
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: Search description, type: text, required: true }
+      - { name: slug, label: Immutable URL slug, type: string, required: true }
+      - { name: publishedAt, label: Published date, type: date, required: true }
+      - { name: updatedAt, label: Updated date, type: date }
+      - { name: draft, label: Keep as draft, type: boolean, default: true }
+      - { name: author, label: Author ID, type: string, required: true }
+      - { name: category, label: Primary category ID, type: string, required: true }
+      - { name: tags, label: Tag IDs, type: string, list: true, required: true }
+      - name: cover
+        label: Cover image
+        type: object
+        fields:
+          - { name: image, label: Image, type: image, required: true }
+          - { name: alt, label: Descriptive alt text, type: string, required: true }
+          - { name: caption, label: Caption / attribution, type: string }
+      - { name: featured, label: Feature on home, type: boolean, default: false }
+      - { name: editorPick, label: Editor's pick, type: boolean, default: false }
+      - { name: trendingScore, label: Editorial trending score (0–100), type: number }
+      - name: seo
+        label: SEO
+        type: object
+        fields:
+          - { name: title, label: SEO title override, type: string }
+          - { name: description, label: SEO description override, type: text }
+          - { name: canonical, label: Canonical URL override, type: string }
+          - { name: noindex, label: Exclude from search engines, type: boolean, default: false }
+          - { name: ogImage, label: Social image, type: image }
+          - { name: ogAlt, label: Social image alt text, type: string }
+      - { name: disclosure, label: Disclosure, type: text }
+      - name: sources
+        label: Sources
+        type: object
+        list: true
+        fields: [{ name: label, type: string }, { name: url, type: string }]
+      - { name: relatedSlugs, label: Related article slug overrides, type: string, list: true }
+      - { name: body, label: Article body, type: rich-text }
+  - { name: tutorials, label: Tutorials, type: collection, path: src/content/posts/tutorials, filename: '{primary}.md', fields: *post_fields }
+  - { name: nodes, label: Node Guides, type: collection, path: src/content/posts/nodes, filename: '{primary}.md', fields: *post_fields }
+  - { name: depin, label: DePIN, type: collection, path: src/content/posts/depin, filename: '{primary}.md', fields: *post_fields }
+  - { name: wallet-guides, label: Wallet Guides, type: collection, path: src/content/posts/wallet-guides, filename: '{primary}.md', fields: *post_fields }
+  - { name: airdrops, label: Airdrops, type: collection, path: src/content/posts/airdrops, filename: '{primary}.md', fields: *post_fields }
+  - { name: comparisons, label: Comparisons, type: collection, path: src/content/posts/comparisons, filename: '{primary}.md', fields: *post_fields }
+  - { name: security, label: Security, type: collection, path: src/content/posts/security, filename: '{primary}.md', fields: *post_fields }
+  - { name: opinion, label: Opinion, type: collection, path: src/content/posts/opinion, filename: '{primary}.md', fields: *post_fields }
+  - { name: ai-crypto, label: AI x Crypto, type: collection, path: src/content/posts/ai-crypto, filename: '{primary}.md', fields: *post_fields }
+  - name: pages
+    label: Pages
+    type: collection
+    path: src/content/pages
+    filename: '{primary}.md'
+    view: { primary: title, sort: [title] }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: Description, type: text, required: true }
+      - { name: updatedAt, label: Last updated, type: date, required: true }
+      - { name: noindex, label: Exclude from search engines, type: boolean, default: false }
+      - { name: body, label: Page body, type: rich-text }

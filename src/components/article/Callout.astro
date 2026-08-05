@@ -1,0 +1,23 @@
+---
+interface Props { type?: 'note' | 'info' | 'warning' | 'danger'; title?: string; }
+const { type = 'note', title } = Astro.props;
+const labels: Record<NonNullable<Props['type']>, string> = { note: 'Note', info: 'Good to know', warning: 'Watch out', danger: 'Stop and verify' };
+const glyphs: Record<NonNullable<Props['type']>, string> = { note: 'i', info: 'i', warning: '!', danger: '!' };
+const label = title ?? labels[type];
+---
+<aside class="callout" data-type={type} role="note"><p class="callout-title"><span class="callout-glyph" aria-hidden="true">{glyphs[type]}</span>{label}</p><div class="callout-body"><slot /></div></aside>
+<style>
+  .callout { margin: 1.5rem 0; padding: 1rem 1.1rem; border: 1px solid; border-left-width: 3px; border-radius: .75rem; background: color-mix(in srgb, var(--surface) 86%, var(--type-color) 14%); }
+  .callout-title { display: flex; align-items: center; gap: .55rem; margin: 0 0 .35rem; font: 800 .82rem var(--font-display); letter-spacing: .06em; text-transform: uppercase; color: var(--type-color); }
+  .callout-glyph { display: grid; width: 1.35rem; height: 1.35rem; place-items: center; border-radius: .4rem; font: 800 .8rem/1 var(--font-display); }
+  .callout-body > :first-child { margin-top: 0; }
+  .callout-body > :last-child { margin-bottom: 0; }
+  .callout[data-type='note'] { --type-color: var(--accent); }
+  .callout[data-type='note'] .callout-glyph { background: var(--accent); color: #062219; }
+  .callout[data-type='info'] { --type-color: var(--violet); }
+  .callout[data-type='info'] .callout-glyph { background: var(--violet); color: #151029; }
+  .callout[data-type='warning'] { --type-color: var(--warning); }
+  .callout[data-type='warning'] .callout-glyph { background: var(--warning); color: var(--warning-ink); }
+  .callout[data-type='danger'] { --type-color: var(--danger); }
+  .callout[data-type='danger'] .callout-glyph { background: var(--danger); color: var(--danger-ink); }
+</style>

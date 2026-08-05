@@ -1,0 +1,20 @@
+---
+import type { PostSummary } from '@/utils/content';
+interface Props { post: PostSummary; all: PostSummary[]; }
+const { post, all } = Astro.props;
+const ordered = [...all].sort((a, b) => a.publishedAt.valueOf() - b.publishedAt.valueOf());
+const index = ordered.findIndex((item) => item.slug === post.slug);
+const older = index > 0 ? ordered[index - 1] : undefined;
+const newer = index >= 0 && index < ordered.length - 1 ? ordered[index + 1] : undefined;
+---
+{(older || newer) && <nav class="prevnext" aria-label="Article navigation">{(older ? <a class="prevnext-link" href={older.url}><span>← Older</span><strong>{older.title}</strong></a> : <span class="prevnext-link empty" aria-hidden="true" />)}{newer && <a class="prevnext-link next" href={newer.url}><span>Newer →</span><strong>{newer.title}</strong></a>}</nav>}
+<style>
+  .prevnext { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 3rem 0; }
+  .prevnext-link { display: grid; gap: .35rem; padding: 1.1rem 1.25rem; border: 1px solid var(--line); border-radius: .85rem; background: var(--surface); text-decoration: none; }
+  .prevnext-link:hover { border-color: var(--accent); }
+  .prevnext-link span { color: var(--muted); font-size: .8rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+  .prevnext-link strong { font: 800 1.02rem/1.3 var(--font-display); }
+  .prevnext-link.next { text-align: right; }
+  .prevnext-link.empty { visibility: hidden; }
+  @media (max-width: 620px) { .prevnext { grid-template-columns: 1fr; } }
+</style>

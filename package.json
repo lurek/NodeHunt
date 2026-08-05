@@ -1,0 +1,34 @@
+{
+  "name": "nodehunt",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && pagefind --site dist",
+    "check:links": "node src/scripts/check-links.mjs",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@astrojs/mdx": "latest",
+    "@astrojs/rss": "latest",
+    "@astrojs/sitemap": "latest",
+    "@rolldown/binding-linux-x64-gnu": "^1.2.3",
+    "@tailwindcss/vite": "latest",
+    "astro": "latest",
+    "pagefind": "latest",
+    "sharp": "latest",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "prettier": "latest",
+    "prettier-plugin-astro": "latest",
+    "typescript": "latest"
+  }
+}

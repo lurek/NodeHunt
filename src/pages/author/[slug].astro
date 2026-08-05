@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ArticleCard from '@/components/cards/ArticleCard.astro';
+import BottomBannerAd from '@/components/ads/BottomBannerAd.astro';
+import { getPublishedSummaries, getTaxonomyLookup, type AuthorSummary, type PostSummary } from '@/utils/content';
+interface Props { author: AuthorSummary; posts: PostSummary[]; }
+export async function getStaticPaths() {
+  const taxonomy = await getTaxonomyLookup();
+  const posts = await getPublishedSummaries(taxonomy);
+  const authors = [...taxonomy.authors.values()];
+  return authors.map((author) => ({ params: { slug: author.slug }, props: { author, posts: posts.filter((post) => post.author.slug === author.slug) } }));
+}
+const { author, posts } = Astro.props;
+const schema = { '@context': 'https://schema.org', '@type': 'ProfilePage', mainEntity: { '@type': 'Person', name: author.name, description: author.bio, jobTitle: author.role, knowsAbout: author.expertise } };
+---
+<BaseLayout title={author.name} description={author.bio} jsonLd={schema}><section class="container author-page"><header class="author-head"><p class="eyebrow">Author</p>{author.avatar && <Image src={author.avatar} alt={`Portrait of ${author.name}`} class="author-portrait" widths={[160]} />}<h1>{author.name}</h1>{author.role && <p class="author-role">{author.role}</p>}{author.bio && <p class="lead">{author.bio}</p>}{author.expertise.length > 0 && <ul class="expertise" aria-label="Areas of expertise">{author.expertise.map((topic) => <li>{topic}</li>)}</ul>}{(author.website || author.x) && <div class="author-links">{author.website && <a href={author.website} rel="noopener noreferrer">Website</a>}{author.x && <a href={author.x} rel="noopener noreferrer">X / Twitter</a>}</div>}</header>{posts.length > 0 && <div><p class="eyebrow">Articles</p><h2 class="feed-title">{posts.length} published {posts.length === 1 ? 'guide' : 'guides'}</h2><div class="grid">{posts.map((post) => <ArticleCard {post} />)}</div></div>}<BottomBannerAd /></section></BaseLayout>
+<style>.author-page{padding:4rem 0}.author-head{margin-bottom:3rem}.author-portrait{width:6.5rem;height:6.5rem;border-radius:50%;object-fit:cover}.author-head h1{margin:.5rem 0 .35rem;font:800 clamp(2.5rem,5vw,4rem)/1 var(--font-display)}.author-role{margin:0;color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.85rem}.lead{max-width:44rem;color:var(--muted);font-size:1.15rem}.expertise{display:flex;flex-wrap:wrap;gap:.45rem;margin:1rem 0 0;padding:0;list-style:none}.expertise li{padding:.35rem .7rem;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.82rem}.author-links{display:flex;gap:1rem;margin-top:1rem}.author-links a{color:var(--accent);font-weight:800}.feed-title{margin:.3rem 0 1.2rem;font:800 1.6rem var(--font-display)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}@media(max-width:780px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}}</style>
