@@ -28,5 +28,7 @@
     "stickyBottom": {
       "enabled": true
     }
-  }
+  },
+  "sandboxNative": false,
+  "socialbarAfterAds": false
 }

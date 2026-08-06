@@ -44,6 +44,12 @@ export const onRequestPost = async (context: any) => {
   if (config.provider !== undefined && typeof config.provider !== 'string') {
     return json({ error: 'config.provider must be a string' }, 400);
   }
+  if (config.sandboxNative !== undefined && typeof config.sandboxNative !== 'boolean') {
+    return json({ error: 'config.sandboxNative must be a boolean' }, 400);
+  }
+  if (config.socialbarAfterAds !== undefined && typeof config.socialbarAfterAds !== 'boolean') {
+    return json({ error: 'config.socialbarAfterAds must be a boolean' }, 400);
+  }
   if (!config.codes || typeof config.codes !== 'object') return json({ error: 'config.codes object is required' }, 400);
   for (const key of AD_CODE_KEYS) {
     const value = config.codes[key];
@@ -65,6 +71,8 @@ export const onRequestPost = async (context: any) => {
       {
         enabled: config.enabled,
         provider: config.provider ?? 'adsterra',
+        sandboxNative: Boolean(config.sandboxNative),
+        socialbarAfterAds: Boolean(config.socialbarAfterAds),
         codes: Object.fromEntries(AD_CODE_KEYS.map((key) => [key, config.codes[key] ?? ''])),
         slots: Object.fromEntries(AD_SLOT_KEYS.map((slot) => [slot, { enabled: Boolean(config.slots[slot].enabled) }])),
       },

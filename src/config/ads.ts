@@ -19,6 +19,10 @@ export function sizeForWidth(width: number): string {
 export interface AdStore {
   enabled: boolean;
   provider: string;
+  /** Render native ads inside a sandboxed iframe to isolate third-party scripts. */
+  sandboxNative: boolean;
+  /** Inject the social bar only after every other ad slot has loaded. */
+  socialbarAfterAds: boolean;
   codes: Record<AdCodeKey, string>;
   slots: Record<AdSlotKey, { enabled: boolean }>;
 }

@@ -23,6 +23,8 @@ const CODE_NOTES: Record<string, string> = {
 interface AdsStore {
   enabled: boolean;
   provider: string;
+  sandboxNative: boolean;
+  socialbarAfterAds: boolean;
   codes: Record<string, string>;
   slots: Record<string, { enabled: boolean }>;
 }
@@ -30,6 +32,8 @@ interface AdsStore {
 const EMPTY: AdsStore = {
   enabled: false,
   provider: 'adsterra',
+  sandboxNative: false,
+  socialbarAfterAds: false,
   codes: Object.fromEntries(AD_CODE_KEYS.map((key) => [key, ''])),
   slots: Object.fromEntries(AD_SLOT_KEYS.map((slot) => [slot, { enabled: false }])),
 };
@@ -99,6 +103,20 @@ export function AdManager() {
           <input className="admin-input" value={config.provider} onChange={(e) => setConfig({ ...config, provider: e.target.value })} placeholder="adsterra" />
         </label>
         <p className="admin-hint">Paste the Adsterra JavaScript tags below. Banners swap responsively: 728x90 on wide screens, 468x90 on medium, 320x50 on small. The sticky bottom bar shows the native banner on desktop and a banner on smaller screens.</p>
+      </div>
+
+      <div className="admin-section">
+        <h3>Ad safety &amp; timing</h3>
+        <label className="admin-label admin-checkbox">
+          <input type="checkbox" checked={Boolean(config.sandboxNative)} onChange={(e) => setConfig({ ...config, sandboxNative: e.target.checked })} />
+          Sandbox native ads
+        </label>
+        <p className="admin-hint">Renders native ads inside an isolated iframe (<code>sandbox="allow-scripts allow-popups"</code>) so third-party scripts cannot navigate the page or touch cookies/localStorage. Disable if a specific ad network refuses to render sandboxed.</p>
+        <label className="admin-label admin-checkbox">
+          <input type="checkbox" checked={Boolean(config.socialbarAfterAds)} onChange={(e) => setConfig({ ...config, socialbarAfterAds: e.target.checked })} />
+          Load social bar last
+        </label>
+        <p className="admin-hint">Defers the social bar until after every other ad slot has loaded, so it never blocks or delays the banners above the fold.</p>
       </div>
 
       <div className="admin-section">

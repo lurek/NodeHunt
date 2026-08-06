@@ -19,16 +19,17 @@
 }
 
 html[data-admin-theme='light'] .admin {
-  --a-bg: #f3f5fa;
-  --a-surface: #ffffff;
-  --a-raised: #e9edf4;
-  --a-text: #101828;
-  --a-muted: #566177;
-  --a-line: #d5dce8;
-  --a-accent: #0b8f63;
+  --a-bg: #f5f1ea;
+  --a-surface: #fdfaf5;
+  --a-raised: #ece5d8;
+  --a-text: #2b2d33;
+  --a-muted: #6d6b63;
+  --a-line: #e0d8c9;
+  --a-accent: #0e7a5a;
   --a-accent-ink: #ffffff;
-  --a-danger: #c13a2b;
+  --a-danger: #b04a2e;
   --a-danger-ink: #ffffff;
+  --a-warning: #9a6700;
   color-scheme: light;
 }
 
