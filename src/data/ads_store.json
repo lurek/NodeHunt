@@ -1,6 +1,8 @@
 {
   "enabled": true,
   "provider": "adsterra",
+  "sandboxNative": true,
+  "socialbarAfterAds": true,
   "codes": {
     "popunder": "<script>\n(function(){\n  var shown = false;\n  function openDemo(){\n    if (shown) return;\n    shown = true;\n    try {\n      var w = window.open('', '_blank');\n      if (w) { w.document.write('<h2 style=\"font-family:Arial,sans-serif\">Demo popunder</h2><p style=\"font-family:Arial,sans-serif\">This is where the Adsterra popunder target page would load.</p>'); }\n    } catch (e) {}\n  }\n  console.info('[NodeHunt demo] Popunder injected above </head>.');\n  window.addEventListener('pointerdown', openDemo, { once: true });\n  window.addEventListener('keydown', openDemo, { once: true });\n})();\n</script>",
     "socialbar": "<script>\n(function(){\n  function show(){\n    if (document.getElementById('nodehunt-demo-socialbar')) return;\n    var bar = document.createElement('div');\n    bar.id = 'nodehunt-demo-socialbar';\n    bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 12px;background:#312e81;color:#ffffff;font:13px/1.2 Arial,sans-serif;border-top:1px solid #6366f1;';\n    bar.innerHTML = '<span style=\"background:#f59e0b;color:#000;font-weight:bold;padding:2px 6px;border-radius:4px;font-size:10px\">DEMO</span> Adsterra Social Bar (slides in above the footer)';\n    document.body.appendChild(bar);\n  }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', show);\n  else show();\n})();\n</script>",
@@ -28,7 +30,5 @@
     "stickyBottom": {
       "enabled": true
     }
-  },
-  "sandboxNative": false,
-  "socialbarAfterAds": false
+  }
 }
