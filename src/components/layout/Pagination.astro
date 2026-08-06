@@ -1,0 +1,34 @@
+---
+interface Props {
+  current: number;
+  total: number;
+  base: string;
+}
+const { current, total, base } = Astro.props;
+const pageUrl = (n: number) => (n === 1 ? base : `${base}page/${n}/`);
+const start = Math.max(1, current - 2);
+const end = Math.min(total, current + 2);
+---
+<nav class="pagination" aria-label="Pagination">
+  {current > 1 && <a class="page-arrow prev" href={pageUrl(current - 1)} rel="prev">← Newer</a>}
+  <div class="page-numbers">
+    {start > 1 && <><a href={pageUrl(1)} aria-label="Page 1">1</a>{start > 2 && <span class="gap" aria-hidden="true">…</span>}</>}
+    {Array.from({ length: end - start + 1 }, (_, i) => start + i).map((n) =>
+      n === current ? <span class="current" aria-current="page">{n}</span> : <a href={pageUrl(n)} aria-label={`Page ${n}`}>{n}</a>
+    )}
+    {end < total && <>{end < total - 1 && <span class="gap" aria-hidden="true">…</span>}<a href={pageUrl(total)} aria-label={`Page ${total}`}>{total}</a></>}
+  </div>
+  {current < total && <a class="page-arrow next" href={pageUrl(current + 1)} rel="next">Older →</a>}
+</nav>
+<style>
+  .pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem; margin: 2.5rem 0 1rem; }
+  .page-arrow { color: var(--accent); font-weight: 800; text-decoration: none; font-size: .9rem; }
+  .page-arrow:hover { text-decoration: underline; }
+  .page-numbers { display: flex; align-items: center; gap: .35rem; }
+  .page-numbers a, .page-numbers .current { display: grid; min-width: 2.3rem; height: 2.3rem; place-items: center; border-radius: .55rem; font-weight: 800; font-size: .9rem; text-decoration: none; }
+  .page-numbers a { border: 1px solid var(--line); color: var(--text); }
+  .page-numbers a:hover { border-color: var(--accent); color: var(--accent); }
+  .page-numbers .current { background: var(--accent); color: #062219; }
+  .gap { color: var(--muted); padding: 0 .2rem; }
+  @media(max-width: 560px) { .page-arrow { flex: 1 0 100%; text-align: center; } }
+</style>

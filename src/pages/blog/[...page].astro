@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ArticleCard from '@/components/cards/ArticleCard.astro';
+import Pagination from '@/components/layout/Pagination.astro';
 import InlineArticleAd from '@/components/ads/InlineArticleAd.astro';
 import BottomBannerAd from '@/components/ads/BottomBannerAd.astro';
 import { getPublishedSummaries } from '@/utils/content';
@@ -11,5 +12,5 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
 }
 const { page } = Astro.props;
 ---
-<BaseLayout title={page.currentPage > 1 ? `Blog – Page ${page.currentPage}` : 'Blog'} description="Research-led articles about Web3 infrastructure, DePIN, nodes, wallets, and security."><section class="container archive"><p class="eyebrow">The research archive</p><h1>NodeHunt Blog</h1><p>Guides and analysis designed to help you ask better questions about Web3 infrastructure.</p><div class="grid">{page.data.map((post) => <ArticleCard {post} />)}</div><InlineArticleAd /><nav class="pagination" aria-label="Pagination">{page.url.prev && <a href={page.url.prev}>← Newer</a>}<span>Page {page.currentPage} of {page.lastPage}</span>{page.url.next && <a href={page.url.next}>Older →</a>}</nav><BottomBannerAd /></section></BaseLayout>
-<style>.archive{padding:4rem 0}.archive h1{margin:.2rem 0;font:800 clamp(2.5rem,5vw,4rem)/1 var(--font-display)}.archive>p:not(.eyebrow){max-width:43rem;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;color:var(--muted)}.pagination a{color:var(--accent);font-weight:800}@media(max-width:780px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}}</style>
+<BaseLayout title={page.currentPage > 1 ? `Blog – Page ${page.currentPage}` : 'Blog'} description="Research-led articles about Web3 infrastructure, DePIN, nodes, wallets, and security."><section class="container archive"><p class="eyebrow">The research archive</p><h1>NodeHunt Blog</h1><p>Guides and analysis designed to help you ask better questions about Web3 infrastructure.</p><div class="grid">{page.data.map((post) => <ArticleCard {post} />)}</div><InlineArticleAd /><Pagination current={page.currentPage} total={page.lastPage} base="/blog/" /><BottomBannerAd /></section></BaseLayout>
+<style>.archive{padding:4rem 0}.archive h1{margin:.2rem 0;font:800 clamp(2.5rem,5vw,4rem)/1 var(--font-display)}.archive>p:not(.eyebrow){max-width:43rem;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}@media(max-width:780px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}}</style>

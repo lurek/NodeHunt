@@ -3,8 +3,11 @@ interface Props { title: string; url: string; }
 const { title, url } = Astro.props;
 const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
 const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+const threadsUrl = `https://www.threads.net/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+const tumblrUrl = `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
 ---
-<aside class="share" aria-label="Share this article"><span class="share-label">Share</span><a class="share-link" href={xUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on X">X</a><a class="share-link" href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">LinkedIn</a><button class="share-link" type="button" data-copy-link>Copy link</button><span class="copy-status" role="status" aria-live="polite"></span></aside>
+<aside class="share" aria-label="Share this article"><span class="share-label">Share</span><a class="share-link" href={xUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on X">X</a><a class="share-link" href={facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">Facebook</a><a class="share-link" href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">LinkedIn</a><a class="share-link" href={threadsUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on Threads">Threads</a><a class="share-link" href={tumblrUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on Tumblr">Tumblr</a><button class="share-link" type="button" data-copy-link>Copy link</button><span class="copy-status" role="status" aria-live="polite"></span></aside>
 <script>
   const button = document.querySelector<HTMLButtonElement>('[data-copy-link]');
   const status = document.querySelector<HTMLElement>('.copy-status');
@@ -18,7 +21,7 @@ const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encod
   });
 </script>
 <style>
-  .share { display: flex; align-items: center; gap: .5rem; margin: 2.5rem 0; }
+  .share { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: 2.5rem 0; }
   .share-label { margin-right: .25rem; color: var(--muted); font: 800 .78rem var(--font-display); letter-spacing: .08em; text-transform: uppercase; }
   .share-link { min-height: 2.25rem; padding: .4rem .8rem; border: 1px solid var(--line); border-radius: .6rem; background: var(--surface); color: var(--text); font-size: .85rem; font-weight: 800; text-decoration: none; cursor: pointer; }
   .share-link:hover { border-color: var(--accent); }

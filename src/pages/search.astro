@@ -1,25 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import SearchBox from '@/components/search/SearchBox.astro';
 ---
-<BaseLayout title="Search" noindex><section class="container search"><p class="eyebrow">Find your next guide</p><h1>Search NodeHunt</h1><label for="search-input">Search articles</label><input id="search-input" type="search" placeholder="Try “wallet security” or “nodes”" autocomplete="off" /><p id="status" aria-live="polite"></p><div id="results"></div></section></BaseLayout>
-<script>
-  interface PagefindResult { data(): Promise<{ url: string; meta: { title: string }; excerpt: string }>; }
-  interface PagefindIndex { search(query: string): Promise<{ results: PagefindResult[] }>; }
-  const input = document.querySelector<HTMLInputElement>('#search-input');
-  const results = document.querySelector<HTMLElement>('#results');
-  const status = document.querySelector<HTMLElement>('#status');
-  let pagefind: PagefindIndex | undefined;
-  async function search() {
-    const query = input?.value.trim() ?? '';
-    if (!query) { if (results) results.innerHTML = ''; if (status) status.textContent = ''; return; }
-    pagefind ??= (await import(/* @vite-ignore */ '/pagefind/pagefind.js')) as unknown as PagefindIndex;
-    const response = await pagefind.search(query);
-    const data = await Promise.all(response.results.slice(0, 10).map((item) => item.data()));
-    if (status) status.textContent = `${data.length} result${data.length === 1 ? '' : 's'} found`;
-    if (results) results.innerHTML = data.map((item) => `<article><h2><a href="${item.url}">${item.meta.title}</a></h2><p>${item.excerpt}</p></article>`).join('') || '<p>No matching articles yet. Try a broader term.</p>';
-  }
-  input?.addEventListener('input', () => { window.clearTimeout((input as HTMLInputElement & { _timer?: number })._timer); (input as HTMLInputElement & { _timer?: number })._timer = window.setTimeout(search, 160); });
-  const query = new URLSearchParams(window.location.search).get('q');
-  if (query && input) { input.value = query; search(); }
-</script>
-<style>.search{max-width:52rem;padding:4rem 0}.search h1{margin:.3rem 0 2rem;font:800 clamp(2.5rem,6vw,4rem)/1 var(--font-display)}label{display:block;margin-bottom:.5rem;font-weight:800}input{width:100%;padding:1rem;border:1px solid var(--line);border-radius:.75rem;background:var(--surface);color:var(--text)}#status{color:var(--muted)}#results article{padding:1.25rem 0;border-bottom:1px solid var(--line)}#results h2{margin:0;font:800 1.3rem var(--font-display)}#results a{color:var(--text)}#results p{color:var(--muted)}</style>
+<BaseLayout title="Search" noindex><section class="container search"><p class="eyebrow">Find your next guide</p><h1>Search NodeHunt</h1><SearchBox id="page" /></section></BaseLayout>
+<style>.search{max-width:52rem;padding:4rem 0}.search h1{margin:.3rem 0 2rem;font:800 clamp(2.5rem,6vw,4rem)/1 var(--font-display)}.search :global(.search-box input){padding:1rem 1.15rem;font-size:1.05rem;border-radius:.75rem}.search :global(.search-box){gap:.5rem}.search :global(.search-results){max-height:none}</style>

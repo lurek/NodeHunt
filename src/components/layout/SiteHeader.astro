@@ -1,5 +1,6 @@
 ---
 import { navigation } from '@/config/site';
+import SearchBox from '@/components/search/SearchBox.astro';
 const path = Astro.url.pathname;
 ---
 <header class="site-header">
@@ -9,9 +10,12 @@ const path = Astro.url.pathname;
       {navigation.map((item) => <a class:list={{ active: path.startsWith(item.href) }} href={item.href}>{item.label}</a>)}
     </nav>
     <div class="header-actions">
-      <a class="search-link" href="/search/" aria-label="Search NodeHunt">⌕ <span>Search</span></a>
+      <div class="search-wrap">
+        <button class="search-toggle" type="button" data-search-toggle aria-expanded="false" aria-controls="header-search-panel" aria-haspopup="dialog">⌕ <span>Search</span></button>
+        <div id="header-search-panel" class="search-popover" hidden><SearchBox id="header" /></div>
+      </div>
       <button class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">◐</button>
-      <details class="mobile-nav"><summary aria-label="Open navigation">Menu</summary><nav aria-label="Mobile navigation">{navigation.map((item) => <a href={item.href}>{item.label}</a>)}<a href="/search/">Search</a></nav></details>
+      <details class="mobile-nav"><summary aria-label="Open navigation">Menu</summary><nav aria-label="Mobile navigation">{navigation.map((item) => <a href={item.href}>{item.label}</a>)}</nav></details>
     </div>
   </div>
 </header>
@@ -23,6 +27,26 @@ const path = Astro.url.pathname;
   const update = () => button?.setAttribute('aria-pressed', String(root.dataset.theme === 'light'));
   update();
   button?.addEventListener('click', () => { root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light'; localStorage.setItem('nodehunt-theme', root.dataset.theme); update(); });
+  const searchToggle = document.querySelector<HTMLButtonElement>('[data-search-toggle]');
+  const searchPanel = document.querySelector<HTMLElement>('#header-search-panel');
+  const openPanel = () => {
+    searchPanel?.removeAttribute('hidden');
+    searchToggle?.setAttribute('aria-expanded', 'true');
+    searchPanel?.querySelector('input')?.focus();
+  };
+  const closePanel = () => {
+    searchPanel?.setAttribute('hidden', '');
+    searchToggle?.setAttribute('aria-expanded', 'false');
+  };
+  searchToggle?.addEventListener('click', () => {
+    if (searchPanel?.hasAttribute('hidden')) openPanel();
+    else closePanel();
+  });
+  document.addEventListener('click', (event) => {
+    const target = event.target as Node;
+    if (searchPanel && !searchPanel.hasAttribute('hidden') && !searchPanel.contains(target) && !searchToggle?.contains(target)) closePanel();
+  });
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closePanel(); });
 </script>
 <style>
   .site-header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid color-mix(in srgb, var(--line) 85%, transparent); background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(14px); }
@@ -30,6 +54,6 @@ const path = Astro.url.pathname;
   .brand { display: inline-flex; align-items: center; gap: .55rem; font: 800 1.2rem var(--font-display); text-decoration: none; }
   .brand:hover { color: var(--text); }.brand-mark { display: grid; width: 1.75rem; height: 1.75rem; place-items: center; border-radius: .55rem; background: linear-gradient(135deg,var(--accent),var(--violet)); color: #07150f; font-size: 1rem; }
   .desktop-nav { display:flex; gap:1.15rem; font-size:.9rem; font-weight:700; }.desktop-nav a { color:var(--muted); text-decoration:none; }.desktop-nav a.active,.desktop-nav a:hover { color:var(--text); }
-  .header-actions { display:flex; align-items:center; gap:.5rem; }.search-link,.theme-toggle { min-height:2.5rem; border:1px solid var(--line); border-radius:.6rem; background:var(--surface); color:var(--text); padding:.45rem .7rem; text-decoration:none; cursor:pointer; }.search-link { font-size:.85rem; }.mobile-nav { display:none; position:relative; }.mobile-nav summary { cursor:pointer; list-style:none; padding:.45rem .25rem; font-weight:700; }.mobile-nav nav { position:absolute; right:0; top:2.4rem; display:grid; min-width:12rem; padding:.5rem; border:1px solid var(--line); border-radius:.75rem; background:var(--surface); box-shadow:0 1rem 3rem #0004; }.mobile-nav a { padding:.65rem; text-decoration:none; }
-  @media(max-width: 780px) { .desktop-nav,.search-link { display:none; }.mobile-nav { display:block; } }
+  .header-actions { display:flex; align-items:center; gap:.5rem; }.search-wrap { position:relative; }.search-toggle,.theme-toggle { min-height:2.5rem; border:1px solid var(--line); border-radius:.6rem; background:var(--surface); color:var(--text); padding:.45rem .7rem; text-decoration:none; cursor:pointer; }.search-toggle { font-size:.85rem; }.search-toggle:hover,.theme-toggle:hover { border-color:var(--accent); }.search-popover { position:absolute; right:0; top:calc(100% + .55rem); z-index:30; width:26rem; max-width:min(92vw,26rem); padding:.9rem; border:1px solid var(--line); border-radius:.8rem; background:var(--surface); box-shadow:0 1rem 3rem #0005; }.search-popover[hidden] { display:none; }.mobile-nav { display:none; position:relative; }.mobile-nav summary { cursor:pointer; list-style:none; padding:.45rem .25rem; font-weight:700; }.mobile-nav nav { position:absolute; right:0; top:2.4rem; display:grid; min-width:12rem; padding:.5rem; border:1px solid var(--line); border-radius:.75rem; background:var(--surface); box-shadow:0 1rem 3rem #0004; }.mobile-nav a { padding:.65rem; text-decoration:none; }
+  @media(max-width: 780px) { .desktop-nav { display:none; }.mobile-nav { display:block; }.search-popover { position:fixed; right:1rem; left:1rem; top:calc(4.7rem + .5rem); width:auto; max-width:none; } }
 </style>

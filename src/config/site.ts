@@ -4,6 +4,7 @@ export const siteConfig = {
   description: 'Research-led guides and analysis for Web3 nodes, DePIN, crypto infrastructure, wallet security, and AI x blockchain.',
   url: import.meta.env.PUBLIC_SITE_URL || 'https://nodehunt.example',
   postsPerPage: 12,
+  homePostsPerPage: 6,
 } as const;
 
 export const navigation = [
