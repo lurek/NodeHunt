@@ -5,11 +5,11 @@
   "socialbarAfterAds": true,
   "codes": {
     "popunder": "",
-    "socialbar": "<script>\n(function(){\n  function show(){\n    if (document.getElementById('nodehunt-demo-socialbar')) return;\n    var bar = document.createElement('div');\n    bar.id = 'nodehunt-demo-socialbar';\n    bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 12px;background:#312e81;color:#ffffff;font:13px/1.2 Arial,sans-serif;border-top:1px solid #6366f1;';\n    bar.innerHTML = '<span style=\"background:#f59e0b;color:#000;font-weight:bold;padding:2px 6px;border-radius:4px;font-size:10px\">DEMO</span> Adsterra Social Bar (slides in above the footer)';\n    document.body.appendChild(bar);\n  }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', show);\n  else show();\n})();\n</script>",
-    "nativeBanner": "<script>\n(function(){\n  var box = document.createElement('div');\n  box.style.cssText = 'width:100%;max-width:360px;height:120px;margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0 14px;background:linear-gradient(135deg,#064e3b,#065f46);border:1px dashed #34d399;border-radius:12px;color:#ecfdf5;font-family:Arial,sans-serif;box-sizing:border-box;';\n  box.innerHTML = '<span style=\"background:#f59e0b;color:#000;font-weight:bold;padding:2px 8px;border-radius:4px;font-size:10px;align-self:flex-start\">DEMO</span><strong style=\"font-size:14px\">Native banner title here</strong><span style=\"font-size:12px;opacity:.85\">Adsterra native banner placeholder</span>';\n  var c = document.currentScript;\n  (c ? c.parentNode : document.body).appendChild(box);\n})();\n</script>",
-    "banner728x90": "<script>\n(function(){\n  var box = document.createElement('div');\n  box.style.cssText = 'width:100%;max-width:728px;height:90px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#1e293b,#334155);border:1px dashed #f59e0b;border-radius:10px;color:#f8fafc;font-family:Arial,sans-serif;box-sizing:border-box;';\n  box.innerHTML = '<span style=\"background:#f59e0b;color:#000;font-weight:bold;padding:2px 8px;border-radius:4px;font-size:11px\">DEMO</span> Adsterra banner 728x90';\n  var c = document.currentScript;\n  (c ? c.parentNode : document.body).appendChild(box);\n})();\n</script>",
-    "banner468x90": "<script>\n(function(){\n  var box = document.createElement('div');\n  box.style.cssText = 'width:100%;max-width:468px;height:90px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#1e293b,#334155);border:1px dashed #f59e0b;border-radius:10px;color:#f8fafc;font-family:Arial,sans-serif;box-sizing:border-box;';\n  box.innerHTML = '<span style=\"background:#f59e0b;color:#000;font-weight:bold;padding:2px 8px;border-radius:4px;font-size:11px\">DEMO</span> Adsterra banner 468x90';\n  var c = document.currentScript;\n  (c ? c.parentNode : document.body).appendChild(box);\n})();\n</script>",
-    "banner320x50": "<script>\n(function(){\n  var box = document.createElement('div');\n  box.style.cssText = 'width:100%;max-width:320px;height:50px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1e293b,#334155);border:1px dashed #f59e0b;border-radius:10px;color:#f8fafc;font-family:Arial,sans-serif;box-sizing:border-box;';\n  box.innerHTML = '<span style=\"background:#f59e0b;color:#000;font-weight:bold;padding:2px 8px;border-radius:4px;font-size:10px\">DEMO</span> Adsterra 320x50';\n  var c = document.currentScript;\n  (c ? c.parentNode : document.body).appendChild(box);\n})();\n</script>"
+    "socialbar": "<script src=\"https://wistfulseverely.com/bc/87/fb/bc87fb52e119fa03b04e04f9dd8a86bf.js\"></script>\n",
+    "nativeBanner": "<script async=\"async\" data-cfasync=\"false\" src=\"https://wistfulseverely.com/9c82eaf8854b4384e45bf9884eb8e4f8/invoke.js\"></script>\n<div id=\"container-9c82eaf8854b4384e45bf9884eb8e4f8\"></div>\n",
+    "banner728x90": "<script>\n  atOptions = {\n    'key' : 'cee45bfd07770963919acec1f378ff29',\n    'format' : 'iframe',\n    'height' : 90,\n    'width' : 728,\n    'params' : {}\n  };\n</script>\n<script src=\"https://wistfulseverely.com/cee45bfd07770963919acec1f378ff29/invoke.js\"></script>\n",
+    "banner468x90": "<script>\n  atOptions = {\n    'key' : '41ead5168c2bdf8ba1c97e55f880888c',\n    'format' : 'iframe',\n    'height' : 60,\n    'width' : 468,\n    'params' : {}\n  };\n</script>\n<script src=\"https://wistfulseverely.com/41ead5168c2bdf8ba1c97e55f880888c/invoke.js\"></script>\n",
+    "banner320x50": "<script>\n  atOptions = {\n    'key' : '15f9d6e65604ac02a0671aa76c85ca51',\n    'format' : 'iframe',\n    'height' : 50,\n    'width' : 320,\n    'params' : {}\n  };\n</script>\n<script src=\"https://wistfulseverely.com/15f9d6e65604ac02a0671aa76c85ca51/invoke.js\"></script>\n"
   },
   "slots": {
     "topBanner": {
@@ -19,9 +19,6 @@
       "enabled": true
     },
     "inlineArticle": {
-      "enabled": true
-    },
-    "midArticle": {
       "enabled": true
     },
     "bottomBanner": {
