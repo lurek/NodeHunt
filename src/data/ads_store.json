@@ -1,7 +1,6 @@
 {
   "enabled": true,
   "provider": "adsterra",
-  "sandboxNative": true,
   "socialbarAfterAds": true,
   "codes": {
     "popunder": "",

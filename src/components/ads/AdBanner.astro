@@ -18,7 +18,6 @@ const isTop = slot === 'topBanner';
   data-pagefind-ignore
   data-ad-mode="banner"
   data-ad-native-below={isTop ? WIDE_BREAKPOINT : undefined}
-  data-ad-sandbox={isTop && adsConfig.sandboxNative ? '1' : undefined}
 >
   {isTop && <template data-ad-size="native" set:html={codes.nativeBanner}></template>}
   <template data-ad-size="728x90" set:html={codes.banner728x90}></template>

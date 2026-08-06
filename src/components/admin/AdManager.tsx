@@ -23,7 +23,6 @@ const CODE_NOTES: Record<string, string> = {
 interface AdsStore {
   enabled: boolean;
   provider: string;
-  sandboxNative: boolean;
   socialbarAfterAds: boolean;
   codes: Record<string, string>;
   slots: Record<string, { enabled: boolean }>;
@@ -32,7 +31,6 @@ interface AdsStore {
 const EMPTY: AdsStore = {
   enabled: false,
   provider: 'adsterra',
-  sandboxNative: false,
   socialbarAfterAds: false,
   codes: Object.fromEntries(AD_CODE_KEYS.map((key) => [key, ''])),
   slots: Object.fromEntries(AD_SLOT_KEYS.map((slot) => [slot, { enabled: false }])),
@@ -106,12 +104,7 @@ export function AdManager() {
       </div>
 
       <div className="admin-section">
-        <h3>Ad safety &amp; timing</h3>
-        <label className="admin-label admin-checkbox">
-          <input type="checkbox" checked={Boolean(config.sandboxNative)} onChange={(e) => setConfig({ ...config, sandboxNative: e.target.checked })} />
-          Sandbox native ads
-        </label>
-        <p className="admin-hint">Renders native ads inside an isolated iframe (<code>sandbox="allow-scripts allow-popups"</code>) so third-party scripts cannot navigate the page or touch cookies/localStorage. Disable if a specific ad network refuses to render sandboxed.</p>
+        <h3>Ad timing</h3>
         <label className="admin-label admin-checkbox">
           <input type="checkbox" checked={Boolean(config.socialbarAfterAds)} onChange={(e) => setConfig({ ...config, socialbarAfterAds: e.target.checked })} />
           Load social bar last
