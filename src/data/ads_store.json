@@ -21,6 +21,9 @@
     "inlineArticle": {
       "enabled": true
     },
+    "midArticle": {
+      "enabled": true
+    },
     "bottomBanner": {
       "enabled": true
     },
