@@ -3,7 +3,7 @@ interface Props { items: { question: string; answer: string }[]; }
 const { items } = Astro.props;
 ---
 <dl class="faq">{items.map((item) => <div class="faq-item"><dt>{item.question}</dt><dd>{item.answer}</dd></div>)}</dl>
-<style>
+<style is:global>
   .faq { margin: 1.5rem 0; padding: 0; }
   .faq-item { padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: .75rem; background: var(--surface); }
   .faq-item + .faq-item { margin-top: .75rem; }

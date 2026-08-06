@@ -4,7 +4,7 @@ const { headers, rows, caption } = Astro.props;
 const regionLabel = caption ?? 'Comparison table';
 ---
 <div class="table-region" role="region" aria-label={regionLabel} tabindex="0"><table>{caption && <caption>{caption}</caption>}<thead><tr>{headers.map((header) => <th scope="col">{header}</th>)}</tr></thead><tbody>{rows.map((row) => <tr>{row.map((cell) => <td>{cell}</td>)}</tr>)}</tbody></table></div>
-<style>
+<style is:global>
   .table-region { overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--line); border-radius: .75rem; }
   .table-region table { display: table; width: 100%; margin: 0; border: 0; border-collapse: collapse; }
   .table-region caption { padding: .75rem 1rem; text-align: left; font: 800 .8rem var(--font-display); color: var(--muted); }

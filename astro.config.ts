@@ -10,6 +10,14 @@ export default defineConfig({
   site,
   output: 'static',
   integrations: [react(), mdx(), sitemap()],
+  image: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'images.pexels.com' },
+      { protocol: 'https', hostname: 'cdn.pixabay.com' },
+      { protocol: 'https', hostname: 'upload.wikimedia.org' },
+    ],
+  },
   vite: { plugins: [tailwindcss()] },
   markdown: {
     shikiConfig: { theme: 'github-dark-default', wrap: true },

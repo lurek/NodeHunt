@@ -6,7 +6,7 @@ const glyphs: Record<NonNullable<Props['type']>, string> = { note: 'i', info: 'i
 const label = title ?? labels[type];
 ---
 <aside class="callout" data-type={type} role="note"><p class="callout-title"><span class="callout-glyph" aria-hidden="true">{glyphs[type]}</span>{label}</p><div class="callout-body"><slot /></div></aside>
-<style>
+<style is:global>
   .callout { margin: 1.5rem 0; padding: 1rem 1.1rem; border: 1px solid; border-left-width: 3px; border-radius: .75rem; background: color-mix(in srgb, var(--surface) 86%, var(--type-color) 14%); }
   .callout-title { display: flex; align-items: center; gap: .55rem; margin: 0 0 .35rem; font: 800 .82rem var(--font-display); letter-spacing: .06em; text-transform: uppercase; color: var(--type-color); }
   .callout-glyph { display: grid; width: 1.35rem; height: 1.35rem; place-items: center; border-radius: .4rem; font: 800 .8rem/1 var(--font-display); }

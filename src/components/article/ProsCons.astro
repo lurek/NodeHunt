@@ -3,7 +3,7 @@ interface Props { pros: string[]; cons: string[]; }
 const { pros, cons } = Astro.props;
 ---
 <div class="proscons"><section class="proscons-col"><h3>Pros</h3><ul>{pros.map((item) => <li>{item}</li>)}</ul></section><section class="proscons-col"><h3>Cons</h3><ul>{cons.map((item) => <li>{item}</li>)}</ul></section></div>
-<style>
+<style is:global>
   .proscons { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
   .proscons-col { padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: .75rem; background: var(--surface); }
   .proscons-col h3 { margin: 0 0 .6rem; font: 800 .82rem var(--font-display); letter-spacing: .06em; text-transform: uppercase; }
