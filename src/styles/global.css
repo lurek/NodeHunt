@@ -96,6 +96,6 @@ button, input { font: inherit; }
 .ad-slot[data-ad-mode="banner"][data-active-size="320x50"] .ad-code { min-height: 50px; }
 .ad-label { font-size: .65rem; line-height: 1; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
 .ad-slot:not([data-active-size]) .ad-label { display: none; }
-.ad-sticky { position: fixed; inset-inline: 0; bottom: 0; z-index: 50; flex-direction: column-reverse; gap: .25rem; padding: .4rem .25rem env(safe-area-inset-bottom); background: var(--surface); border-top: 1px solid var(--line); box-shadow: 0 -1rem 2rem #0001; }
+.ad-sticky { position: fixed; inset-inline: 0; bottom: 0; z-index: 50; margin: 0; flex-direction: column-reverse; gap: .25rem; padding: .4rem .25rem env(safe-area-inset-bottom); background: var(--surface); border-top: 1px solid var(--line); box-shadow: 0 -1rem 2rem #0001; }
 .ad-sticky .ad-code { min-height: 0; }
 .ad-close { position: absolute; top: .3rem; right: .5rem; border: 0; background: transparent; color: var(--muted); font-size: 1.1rem; cursor: pointer; padding: .25rem; line-height: 1; }
