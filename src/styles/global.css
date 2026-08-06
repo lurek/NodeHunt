@@ -67,6 +67,9 @@ button, input { font: inherit; }
 .prose table { display: block; overflow-x: auto; width: 100%; border-collapse: collapse; }
 .prose th, .prose td { padding: .75rem; border: 1px solid var(--line); text-align: left; }
 .prose img { max-width: 100%; height: auto; border-radius: .9rem; margin-block: 1.5rem; }
+.prose figure { margin: 1.5rem 0; }
+.prose figure img { margin-block: 0; }
+.prose figcaption { margin-top: .6rem; color: var(--muted); font-size: .85rem; }
 .prose ul, .prose ol { padding-left: 1.4rem; }
 .prose-custom { font-size: 1.0625rem; }
 .prose-custom > * + * { margin-top: 1.35em; }

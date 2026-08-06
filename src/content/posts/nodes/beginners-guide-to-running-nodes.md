@@ -7,7 +7,10 @@ draft: false
 author: nodehunt-editorial
 category: web3-nodes
 tags: [nodes, security]
-cover: { image: '../../../assets/content/nodehunt-cover.svg', alt: 'NodeHunt illustration of multiple connected blockchain nodes sharing data' }
+cover:
+  image: 'https://images.unsplash.com/photo-1488229297570-58520851e868?w=1600&h=900&fit=crop&auto=format&q=80'
+  alt: 'Data center corridor with blue and purple lighting where blockchain node servers are hosted'
+  caption: 'Dedicated server hardware is the typical home for blockchain full nodes and validators.'
 featured: true
 editorPick: true
 seo: { noindex: false }
@@ -18,7 +21,10 @@ Running a blockchain node is one of the best ways to learn how a network actuall
 
 If you are still deciding whether running a node is worth it, start with the bigger picture in our [guide to the best crypto nodes for beginners](/articles/best-crypto-nodes-for-beginners/), which covers the projects and rewards side of the equation.
 
-<img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&h=900&fit=crop&auto=format&q=80" alt="Rows of server racks inside a modern data center" width="1600" height="900" loading="lazy" />
+<figure>
+  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&h=900&fit=crop&auto=format&q=80" alt="Rows of server racks in a data center running blockchain node software" width="1600" height="900" loading="lazy" />
+  <figcaption>Full nodes store and relay the ledger; most run from data centers on 24/7 internet connections.</figcaption>
+</figure>
 
 ## What a blockchain node actually is
 
@@ -67,7 +73,10 @@ For **Bitcoin**, Bitcoin Core needs about 750 GB of disk at default settings, 2 
   <div class="callout-body"><p>An HDD will not keep up with Ethereum state growth — the node falls behind faster than it syncs. Use TLC NVMe or a quality SSD, keep at least 20% of the disk free, and pick an unmetered internet plan.</p></div>
 </aside>
 
-<img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&h=900&fit=crop&auto=format&q=80" alt="Close-up of a computer motherboard with a CPU socket and gold pins" width="1600" height="900" loading="lazy" />
+<figure>
+  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&h=900&fit=crop&auto=format&q=80" alt="Computer motherboard with CPU socket, the core hardware of a blockchain node" width="1600" height="900" loading="lazy" />
+  <figcaption>Disk speed is the real bottleneck: blockchain sync is I/O-intensive, so fast NVMe storage beats raw CPU power.</figcaption>
+</figure>
 
 ## Choosing a network and sync mode
 
@@ -101,7 +110,10 @@ Security is where most beginners get hurt. The setup checklist that protects any
 
 The same discipline that protects your keys is covered in more depth in our [guide to securing your crypto wallet](/articles/how-to-secure-your-crypto-wallet/), and it applies to node keystores just as much as hot wallets.
 
-<img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&h=900&fit=crop&auto=format&q=80" alt="Digital lock icon representing cybersecurity on a glowing interface" width="1600" height="900" loading="lazy" />
+<figure>
+  <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&h=900&fit=crop&auto=format&q=80" alt="Digital padlock icon representing cybersecurity best practices for blockchain node operators" width="1600" height="900" loading="lazy" />
+  <figcaption>Secure a node host the same way you protect wallet keys: SSH-only access, firewall rules, and automatic updates.</figcaption>
+</figure>
 
 ## Monitoring and maintenance
 

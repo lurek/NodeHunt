@@ -69,7 +69,7 @@ Every post must define exactly these fields. They match the admin editor fields.
 | **Category** | A lowercase kebab-case taxonomy slug (prefer one of the 8 above). |
 | **Tags** | 1-6 comma-separated kebab-case slugs. |
 | **Cover alt** | At least 8 characters describing the featured image. |
-| **Featured image** | A working remote URL from an allowed host (see section 7), or the default cover `nodehunt-cover.svg`. |
+| **Featured image** | A relevant, unique remote URL from an allowed host (see section 7), plus an optional short `caption`. Default cover only as a last resort. |
 
 ## 6. Body Content & HTML Format
 
@@ -119,7 +119,15 @@ Include 4-8 real questions with concise, accurate answers.
 ### 6.5 Blockquotes, code, images
 - Blockquote: Markdown `>` (or `<blockquote>`), styled automatically.
 - Code: fenced code blocks with a language tag (```` ```bash ````).
-- Images: `<img src="https://..." alt="Descriptive alt text" width="1600" height="900" loading="lazy" />`. Provide `width`/`height` to avoid layout shift.
+- Images: wrap every image in `<figure>` with a keyword-rich `alt` and a relevant `figcaption` (both are important for SEO). Provide `width`/`height` to avoid layout shift.
+```html
+<figure>
+  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&h=900&fit=crop&auto=format&q=80" alt="Computer motherboard with CPU socket, the core hardware of a blockchain node" width="1600" height="900" loading="lazy" />
+  <figcaption>Disk speed is the real bottleneck: blockchain sync is I/O-intensive, so fast NVMe storage beats raw CPU power.</figcaption>
+</figure>
+```
+- Alt text rules: describe what the image shows, state the subject naturally, and include a relevant keyword once. Never keyword-stuff, and never leave `alt` empty for content images.
+- Caption rules: 1 short sentence that adds context the reader would not get from the alt text alone; it may naturally include a keyword.
 
 ### 6.6 Structure of a complete post
 1. Intro paragraph (hook + what the reader will learn) — no heading needed.
@@ -134,10 +142,10 @@ Include 4-8 real questions with concise, accurate answers.
 ## 7. Images Protocol
 
 - **Only these hosts are allowed for featured and body images** (they are whitelisted in the site's image pipeline): `images.unsplash.com`, `images.pexels.com`, `cdn.pixabay.com`, `upload.wikimedia.org`. Use copyright-free / Creative Commons images only, and prefer ones already on these CDNs.
-- **Featured/cover image:** provide a working URL from an allowed host. The site downloads and optimizes it automatically. If you cannot find a good one, or you can generate an image, specify "Default cover" (`nodehunt-cover.svg`) and provide a detailed cover-prompt the editor can use to generate and upload one via the admin.
-- **Body images:** include at least 3 relevant, distinct images placed in different sections. Verify every URL actually loads. Never invent or reuse a broken URL.
-- **No visual repetition:** vary styles/palettes across posts; do not default to the same blueish neon cyber look every time.
-- **Deliver for every image:** URL, ALT text, caption, source/credit.
+- **Featured/cover image — REQUIRED for every post.** Never fall back to the default `nodehunt-cover.svg` unless no suitable image exists. Provide a working, on-topic remote URL from an allowed host; the site downloads and optimizes it automatically (auto-scaled to 800/1200/1600px). It is also shown on article cards, so it must be compelling at card size. Use the URL format `https://images.unsplash.com/photo-XXXX?w=1600&h=900&fit=crop&auto=format&q=80` to guarantee the 1600x900 dimensions. Set both a keyword-rich `alt` (min 8 chars) and a short `caption` for the cover; the caption is displayed under the hero image. The featured image must be **distinct from the body images** — never reuse the same photo twice.
+- **Body images:** include at least 3 relevant, distinct images placed in different sections. Wrap each in `<figure>` with `<img alt="...">` and `<figcaption>...</figcaption>` (see section 6.5). Verify every URL actually loads. Never invent or reuse a broken URL.
+- **No visual repetition:** vary styles/palettes across posts and within a post; do not default to the same blueish neon cyber look every time.
+- **Deliver for every image (including the cover):** URL, ALT text, caption, source/credit.
 
 ## 8. Internal Linking
 
@@ -161,14 +169,15 @@ ALWAYS crawl the live site before writing to discover real, existing pages:
 
 - The metadata above IS the on-page SEO: title → `<h1>`/`<title>`, description → meta description, slug → canonical URL.
 - Use the FAQ block for People Also Ask opportunities; the site auto-generates the Table of Contents from your `##`/`###` headings (aim for 3+ sections).
-- Keep paragraphs short, distribute target and secondary keywords naturally, and write unique image ALT text.
+- Keep paragraphs short, distribute target and secondary keywords naturally, and write unique image ALT text plus a relevant caption for every image (these reinforce the page's keyword entities).
+- The featured image must have an ALT text and a caption; it appears in the page schema.org markup, so a descriptive alt helps image search.
 - Add high-quality external authority links in the body for every factual claim (primary docs, CoinGecko/CMC/DefiLlama, official announcements).
 
 ## 11. Post Deliverables Package
 
 Combine everything into a single `post.md` that contains, in order:
 
-1. **SEO metadata block:** Title, Meta Description (50-180 chars), URL slug, Collection, Category slug, Tags, Cover image URL + alt (or "Default cover" + cover prompt).
+1. **SEO metadata block:** Title, Meta Description (50-180 chars), URL slug, Collection, Category slug, Tags, Cover image URL + alt + caption (or "Default cover" + cover prompt).
 2. **Body:** the full post (Markdown + the styled HTML components), ready to paste into the admin editor.
 3. **Image manifest:** every image URL, ALT, caption, source/credit.
 4. **Sources & references:** all external URLs used, grouped by section.
@@ -193,7 +202,8 @@ Never finalize output until all boxes are checked:
 - [ ] Body uses Markdown for prose/headings and raw HTML only for styled components
 - [ ] No hardcoded colors, no inline styles, no inline JavaScript, no JSON-LD
 - [ ] At least one styled component (callout / pros-cons / comparison table / FAQ)
-- [ ] At least 3 relevant, working, copyright-free images with ALT text
+- [ ] Featured image is relevant and unique (not the default cover unless unavoidable), with keyword-rich ALT text and a caption
+- [ ] At least 3 relevant, working, copyright-free body images, each wrapped in `<figure>` with descriptive ALT text and a relevant caption
 - [ ] 4-6 natural internal links to real existing articles + any relevant category/tag link
 - [ ] External authority links included for factual claims
 - [ ] FAQ section with accurate 4-8 answers
