@@ -1,22 +1,26 @@
 import adsStore from '../data/ads_store.json';
 
-export type AdSlot = 'topBanner' | 'sidebar' | 'inlineArticle' | 'stickyMobile' | 'bottomBanner' | 'footer';
+export type AdCodeKey = 'popunder' | 'socialbar' | 'nativeBanner' | 'banner728x90' | 'banner468x90' | 'banner320x50';
+export type AdSlotKey = 'topBanner' | 'sidebar' | 'inlineArticle' | 'bottomBanner' | 'footer' | 'stickyBottom';
 
-export interface AdSlotConfig {
-  enabled: boolean;
-  /** Reserved dimensions prevent layout shift (CLS) once a provider is active. */
-  minHeight: number;
-  maxWidth: number;
+export const AD_CODE_KEYS: AdCodeKey[] = ['popunder', 'socialbar', 'nativeBanner', 'banner728x90', 'banner468x90', 'banner320x50'];
+export const AD_SLOT_KEYS: AdSlotKey[] = ['topBanner', 'sidebar', 'inlineArticle', 'bottomBanner', 'footer', 'stickyBottom'];
+
+export const WIDE_BREAKPOINT = 728;
+export const MEDIUM_BREAKPOINT = 468;
+
+/** Banner size for a given viewport width: 728x90 → 468x90 → 320x50. */
+export function sizeForWidth(width: number): string {
+  if (width >= WIDE_BREAKPOINT) return '728x90';
+  if (width >= MEDIUM_BREAKPOINT) return '468x90';
+  return '320x50';
 }
 
-export const adsConfig: {
+export interface AdStore {
   enabled: boolean;
   provider: string;
-  providerId: string;
-  slots: Record<AdSlot, AdSlotConfig>;
-} = adsStore as {
-  enabled: boolean;
-  provider: string;
-  providerId: string;
-  slots: Record<AdSlot, AdSlotConfig>;
-};
+  codes: Record<AdCodeKey, string>;
+  slots: Record<AdSlotKey, { enabled: boolean }>;
+}
+
+export const adsConfig: AdStore = adsStore as AdStore;

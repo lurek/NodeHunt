@@ -1,0 +1,8 @@
+---
+import { adsConfig } from '@/config/ads';
+
+const code = adsConfig.enabled && adsConfig.codes.socialbar ? adsConfig.codes.socialbar : '';
+if (!code) return;
+---
+
+<Fragment set:html={code} />

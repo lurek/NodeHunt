@@ -11,6 +11,7 @@ type Tab = 'posts' | 'ads' | 'indexnow';
 export function AdminApp() {
   const [authed, setAuthed] = useState(false);
   const [tab, setTab] = useState<Tab>('posts');
+  const [screen, setScreen] = useState<'list' | 'editor'>('list');
   const [editing, setEditing] = useState<EditingPost | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
 
@@ -31,9 +32,14 @@ export function AdminApp() {
     setAuthed(false);
   }
 
-  function startNew() {
+  function openEditor(editingPost: EditingPost | null) {
+    setEditing(editingPost);
+    setScreen('editor');
+  }
+
+  function closeEditor() {
+    setScreen('list');
     setEditing(null);
-    setTab('posts');
   }
 
   return (
@@ -42,7 +48,7 @@ export function AdminApp() {
         <div className="admin-bar-inner">
           <strong className="admin-logo">NodeHunt<span>Publisher</span></strong>
           <nav className="admin-nav">
-            <button className={`admin-tab ${tab === 'posts' ? 'admin-tab-active' : ''}`} onClick={() => { setTab('posts'); setEditing(null); }}>Posts</button>
+            <button className={`admin-tab ${tab === 'posts' ? 'admin-tab-active' : ''}`} onClick={() => { setTab('posts'); closeEditor(); }}>Posts</button>
             <button className={`admin-tab ${tab === 'ads' ? 'admin-tab-active' : ''}`} onClick={() => setTab('ads')}>Ads</button>
             <button className={`admin-tab ${tab === 'indexnow' ? 'admin-tab-active' : ''}`} onClick={() => setTab('indexnow')}>IndexNow</button>
           </nav>
@@ -54,10 +60,10 @@ export function AdminApp() {
       </header>
 
       <main className="admin-main">
-        {tab === 'posts' && (editing ? (
-          <PostEditor editing={editing} onBack={() => setEditing(null)} onChanged={() => { setEditing(null); setReloadKey((k) => k + 1); }} />
+        {tab === 'posts' && (screen === 'editor' ? (
+          <PostEditor editing={editing} onBack={closeEditor} onChanged={() => { closeEditor(); setReloadKey((k) => k + 1); }} />
         ) : (
-          <PostManager key={reloadKey} onEdit={setEditing} onNew={startNew} />
+          <PostManager key={reloadKey} onEdit={(post) => openEditor(post)} onNew={() => openEditor(null)} />
         ))}
         {tab === 'ads' && <AdManager />}
         {tab === 'indexnow' && <IndexNowManager />}

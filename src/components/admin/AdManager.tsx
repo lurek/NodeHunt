@@ -1,43 +1,53 @@
 import { useEffect, useState } from 'react';
 import { adminFetch } from '@/lib/admin';
+import { AD_CODE_KEYS, AD_SLOT_KEYS } from '@/config/ads';
 
-const SLOTS = ['topBanner', 'sidebar', 'inlineArticle', 'stickyMobile', 'bottomBanner', 'footer'] as const;
+const SLOT_NOTES: Record<string, string> = {
+  topBanner: 'Top of page · 728x90 → 468x90 → 320x50 · hidden below 728px so the sticky takes over',
+  sidebar: 'Sidebar · 728x90 → 468x90 → 320x50',
+  inlineArticle: 'Inside content · 728x90 → 468x90 → 320x50',
+  bottomBanner: 'End of article · 728x90 → 468x90 → 320x50',
+  footer: 'Above footer · 728x90 → 468x90 → 320x50',
+  stickyBottom: 'Fixed bottom bar · native banner on desktop, banner on smaller screens',
+};
 
-type SlotKey = (typeof SLOTS)[number];
+const CODE_NOTES: Record<string, string> = {
+  popunder: 'Adsterra Popunder JS tag (place above </head>)',
+  socialbar: 'Adsterra Social Bar JS tag (place above </body>)',
+  nativeBanner: 'Adsterra Native Banner JS tag (sticky, desktop)',
+  banner728x90: 'Banner 728x90 JS tag',
+  banner468x90: 'Banner 468x90 JS tag',
+  banner320x50: 'Banner 320x50 JS tag',
+};
 
-interface SlotConfig {
-  enabled: boolean;
-  minHeight: number;
-  maxWidth: number;
-}
-
-interface AdsConfig {
+interface AdsStore {
   enabled: boolean;
   provider: string;
-  providerId: string;
-  slots: Record<SlotKey, SlotConfig>;
+  codes: Record<string, string>;
+  slots: Record<string, { enabled: boolean }>;
 }
 
-const EMPTY: AdsConfig = {
+const EMPTY: AdsStore = {
   enabled: false,
-  provider: '',
-  providerId: '',
-  slots: Object.fromEntries(
-    SLOTS.map((slot) => [slot, { enabled: false, minHeight: slot === 'topBanner' ? 90 : slot === 'sidebar' ? 600 : slot === 'inlineArticle' ? 250 : slot === 'stickyMobile' ? 50 : 90, maxWidth: slot === 'topBanner' ? 970 : slot === 'sidebar' ? 300 : slot === 'stickyMobile' ? 360 : 728 }])
-  ) as Record<SlotKey, SlotConfig>,
+  provider: 'adsterra',
+  codes: Object.fromEntries(AD_CODE_KEYS.map((key) => [key, ''])),
+  slots: Object.fromEntries(AD_SLOT_KEYS.map((slot) => [slot, { enabled: false }])),
 };
 
 export function AdManager() {
-  const [config, setConfig] = useState<AdsConfig>(EMPTY);
+  const [config, setConfig] = useState<AdsStore>(EMPTY);
   const [sha, setSha] = useState<string | undefined>();
   const [loaded, setLoaded] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
 
   useEffect(() => {
-    adminFetch<{ config: AdsConfig | null; sha: string | null }>('/api/ads').then((res) => {
+    adminFetch<{ config: AdsStore | null; sha: string | null }>('/api/ads').then((res) => {
       if (res.ok && res.data) {
-        if (res.data.config) setConfig(res.data.config);
+        if (res.data.config) {
+          const merged = { ...EMPTY, ...res.data.config, codes: { ...EMPTY.codes, ...(res.data.config.codes ?? {}) }, slots: { ...EMPTY.slots, ...(res.data.config.slots ?? {}) } };
+          setConfig(merged);
+        }
         setSha(res.data.sha ?? undefined);
       } else {
         setMessage({ ok: false, text: res.error || 'Failed to load ads config' });
@@ -46,8 +56,12 @@ export function AdManager() {
     });
   }, []);
 
-  function toggleSlot(slot: SlotKey) {
-    setConfig((prev) => ({ ...prev, slots: { ...prev.slots, [slot]: { ...prev.slots[slot], enabled: !prev.slots[slot].enabled } } }));
+  function setCode(key: string, value: string) {
+    setConfig((prev) => ({ ...prev, codes: { ...prev.codes, [key]: value } }));
+  }
+
+  function toggleSlot(slot: string) {
+    setConfig((prev) => ({ ...prev, slots: { ...prev.slots, [slot]: { enabled: !prev.slots[slot]?.enabled } } }));
   }
 
   async function save() {
@@ -70,7 +84,7 @@ export function AdManager() {
   return (
     <div className="admin-manager">
       <div className="admin-editor-head">
-        <h2>Ad placements</h2>
+        <h2>Ad placements (Adsterra)</h2>
         <button className="admin-btn admin-btn-primary" onClick={save} disabled={busy}>{busy ? 'Saving…' : 'Save config'}</button>
       </div>
       {message && <p className={message.ok ? 'admin-success' : 'admin-error'}>{message.text}</p>}
@@ -80,29 +94,37 @@ export function AdManager() {
           <input type="checkbox" checked={config.enabled} onChange={(e) => setConfig({ ...config, enabled: e.target.checked })} />
           Enable ads sitewide
         </label>
-        <div className="admin-row">
-          <label className="admin-label">
-            Provider
-            <input className="admin-input" value={config.provider} onChange={(e) => setConfig({ ...config, provider: e.target.value })} placeholder="e.g. Ezoic, Monumetric, Mediavine" />
-          </label>
-          <label className="admin-label">
-            Provider ID
-            <input className="admin-input" value={config.providerId} onChange={(e) => setConfig({ ...config, providerId: e.target.value })} placeholder="Account / placement ID" />
-          </label>
-        </div>
-        <p className="admin-hint">Ads only render when enabled AND a provider is set. Placeholder code is inserted at build time.</p>
+        <label className="admin-label">
+          Provider
+          <input className="admin-input" value={config.provider} onChange={(e) => setConfig({ ...config, provider: e.target.value })} placeholder="adsterra" />
+        </label>
+        <p className="admin-hint">Paste the Adsterra JavaScript tags below. Banners swap responsively: 728x90 on wide screens, 468x90 on medium, 320x50 on small. The sticky bottom bar shows the native banner on desktop and a banner on smaller screens.</p>
       </div>
 
-      <div className="admin-slot-grid">
-        {SLOTS.map((slot) => (
-          <label key={slot} className="admin-slot">
-            <input type="checkbox" checked={config.slots[slot].enabled} onChange={() => toggleSlot(slot)} />
-            <span>
-              <strong>{slot}</strong>
-              <small>{config.slots[slot].minHeight}×{config.slots[slot].maxWidth}px</small>
-            </span>
+      <div className="admin-section">
+        <h3>Adsterra JS codes</h3>
+        {AD_CODE_KEYS.map((key) => (
+          <label key={key} className="admin-label">
+            {key}
+            <textarea className="admin-input admin-textarea" rows={key === 'popunder' || key === 'socialbar' ? 5 : 4} value={config.codes[key] ?? ''} onChange={(e) => setCode(key, e.target.value)} placeholder={`<script async="async" ...>`} />
+            <small className="admin-hint">{CODE_NOTES[key]}</small>
           </label>
         ))}
+      </div>
+
+      <div className="admin-section">
+        <h3>Placements</h3>
+        <div className="admin-slot-grid">
+          {AD_SLOT_KEYS.map((slot) => (
+            <label key={slot} className="admin-slot">
+              <input type="checkbox" checked={Boolean(config.slots[slot]?.enabled)} onChange={() => toggleSlot(slot)} />
+              <span>
+                <strong>{slot}</strong>
+                <small>{SLOT_NOTES[slot]}</small>
+              </span>
+            </label>
+          ))}
+        </div>
       </div>
     </div>
   );

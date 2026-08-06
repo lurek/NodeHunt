@@ -6,7 +6,9 @@ import SiteFooter from '@/components/layout/SiteFooter.astro';
 import TopBannerAd from '@/components/ads/TopBannerAd.astro';
 import StickyMobileAd from '@/components/ads/StickyMobileAd.astro';
 import FooterAd from '@/components/ads/FooterAd.astro';
+import AdPopunder from '@/components/ads/AdPopunder.astro';
+import AdSocialBar from '@/components/ads/AdSocialBar.astro';
 interface Props { title?: string; description?: string; noindex?: boolean; jsonLd?: Record<string, unknown>; }
 const { title, description, noindex, jsonLd } = Astro.props;
 ---
-<!doctype html><html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><SiteHead {title} {description} {noindex} {jsonLd} /></head><body><a href="#main" class="skip-link">Skip to content</a><SiteHeader /><TopBannerAd /><main id="main"><slot /></main><FooterAd /><StickyMobileAd /><SiteFooter /></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><SiteHead {title} {description} {noindex} {jsonLd} /><AdPopunder /></head><body><a href="#main" class="skip-link">Skip to content</a><SiteHeader /><TopBannerAd /><main id="main"><slot /></main><FooterAd /><StickyMobileAd /><SiteFooter /><AdSocialBar /><script>import '@/components/ads/ad-loader';</script></body></html>

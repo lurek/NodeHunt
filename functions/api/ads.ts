@@ -2,7 +2,8 @@ import { getFile, putFile } from '../_lib/github';
 import { json, requireAdmin, onOptions } from '../_lib/helpers';
 
 const ADS_PATH = 'src/data/ads_store.json';
-const AD_SLOTS = ['topBanner', 'sidebar', 'inlineArticle', 'stickyMobile', 'bottomBanner', 'footer'];
+const AD_CODE_KEYS = ['popunder', 'socialbar', 'nativeBanner', 'banner728x90', 'banner468x90', 'banner320x50'];
+const AD_SLOT_KEYS = ['topBanner', 'sidebar', 'inlineArticle', 'bottomBanner', 'footer', 'stickyBottom'];
 
 function decodeUtf8(base64: string): string {
   const binary = atob(base64);
@@ -40,12 +41,18 @@ export const onRequestPost = async (context: any) => {
     return json({ error: 'config object is required' }, 400);
   }
   if (typeof config.enabled !== 'boolean') return json({ error: 'config.enabled must be a boolean' }, 400);
-  if (typeof config.provider !== 'string') return json({ error: 'config.provider must be a string' }, 400);
-  if (config.providerId !== undefined && typeof config.providerId !== 'string') {
-    return json({ error: 'config.providerId must be a string' }, 400);
+  if (config.provider !== undefined && typeof config.provider !== 'string') {
+    return json({ error: 'config.provider must be a string' }, 400);
+  }
+  if (!config.codes || typeof config.codes !== 'object') return json({ error: 'config.codes object is required' }, 400);
+  for (const key of AD_CODE_KEYS) {
+    const value = config.codes[key];
+    if (value !== undefined && typeof value !== 'string') {
+      return json({ error: `code "${key}" must be a string` }, 400);
+    }
   }
   if (!config.slots || typeof config.slots !== 'object') return json({ error: 'config.slots object is required' }, 400);
-  for (const slot of AD_SLOTS) {
+  for (const slot of AD_SLOT_KEYS) {
     const entry = config.slots[slot];
     if (!entry || typeof entry !== 'object' || typeof entry.enabled !== 'boolean') {
       return json({ error: `slot "${slot}" must have an enabled boolean` }, 400);
@@ -57,9 +64,9 @@ export const onRequestPost = async (context: any) => {
     const serialized = JSON.stringify(
       {
         enabled: config.enabled,
-        provider: config.provider,
-        providerId: config.providerId ?? '',
-        slots: Object.fromEntries(AD_SLOTS.map((slot) => [slot, config.slots[slot]])),
+        provider: config.provider ?? 'adsterra',
+        codes: Object.fromEntries(AD_CODE_KEYS.map((key) => [key, config.codes[key] ?? ''])),
+        slots: Object.fromEntries(AD_SLOT_KEYS.map((slot) => [slot, { enabled: Boolean(config.slots[slot].enabled) }])),
       },
       null,
       2

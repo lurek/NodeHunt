@@ -1,13 +1,20 @@
 {
   "enabled": false,
-  "provider": "",
-  "providerId": "",
+  "provider": "adsterra",
+  "codes": {
+    "popunder": "",
+    "socialbar": "",
+    "nativeBanner": "",
+    "banner728x90": "",
+    "banner468x90": "",
+    "banner320x50": ""
+  },
   "slots": {
-    "topBanner": { "enabled": false, "minHeight": 90, "maxWidth": 970 },
-    "sidebar": { "enabled": false, "minHeight": 600, "maxWidth": 300 },
-    "inlineArticle": { "enabled": false, "minHeight": 250, "maxWidth": 728 },
-    "stickyMobile": { "enabled": false, "minHeight": 50, "maxWidth": 360 },
-    "bottomBanner": { "enabled": false, "minHeight": 90, "maxWidth": 728 },
-    "footer": { "enabled": false, "minHeight": 90, "maxWidth": 728 }
+    "topBanner": { "enabled": false },
+    "sidebar": { "enabled": false },
+    "inlineArticle": { "enabled": false },
+    "bottomBanner": { "enabled": false },
+    "footer": { "enabled": false },
+    "stickyBottom": { "enabled": false }
   }
 }
