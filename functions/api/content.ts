@@ -36,7 +36,7 @@ export const onRequestGet = async (context: any) => {
     const posts: Record<string, string[]> = {};
     for (const collection of COLLECTIONS) {
       const files = await listDir(env.GITHUB_TOKEN, `src/content/posts/${collection}`);
-      posts[category] = files
+      posts[collection] = files
         .filter((f: any) => f.type === 'file' && (f.name.endsWith('.md') || f.name.endsWith('.mdx')))
         .map((f: any) => f.name);
     }
