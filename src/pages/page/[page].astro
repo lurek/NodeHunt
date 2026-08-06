@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import ArticleCard from '@/components/cards/ArticleCard.astro';
 import Pagination from '@/components/layout/Pagination.astro';
 import InlineArticleAd from '@/components/ads/InlineArticleAd.astro';
-import BottomBannerAd from '@/components/ads/BottomBannerAd.astro';
 import { getPublishedSummaries, type PostSummary } from '@/utils/content';
 import { siteConfig } from '@/config/site';
 
@@ -29,5 +28,5 @@ export async function getStaticPaths(): Promise<{ params: { page: string }; prop
 
 const { posts, currentPage, totalPages } = Astro.props;
 ---
-<BaseLayout title={`All articles – Page ${currentPage}`} description="Browse the full NodeHunt research archive."><section class="container archive"><p class="eyebrow">All articles</p><h1>Everything on NodeHunt</h1><p>Page {currentPage} of {totalPages}. Browse the full research archive.</p><div class="grid">{posts.map((post) => <ArticleCard {post} />)}</div><InlineArticleAd /><Pagination current={currentPage} total={totalPages} base="/" /><BottomBannerAd /></section></BaseLayout>
+<BaseLayout title={`All articles – Page ${currentPage}`} description="Browse the full NodeHunt research archive."><section class="container archive"><p class="eyebrow">All articles</p><h1>Everything on NodeHunt</h1><p>Page {currentPage} of {totalPages}. Browse the full research archive.</p><div class="grid">{posts.map((post) => <ArticleCard {post} />)}</div><InlineArticleAd /><Pagination current={currentPage} total={totalPages} base="/" /></section></BaseLayout>
 <style>.archive{padding:4rem 0}.archive h1{margin:.2rem 0;font:800 clamp(2.5rem,5vw,4rem)/1 var(--font-display)}.archive>p:not(.eyebrow){max-width:43rem;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}@media(max-width:780px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}}</style>

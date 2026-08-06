@@ -8,7 +8,7 @@ author: nodehunt-editorial
 category: web3-nodes
 tags: [nodes, security]
 cover:
-  image: 'https://images.unsplash.com/photo-1488229297570-58520851e868?w=1600&h=900&fit=crop&auto=format&q=80'
+  image: '../../../assets/content/blockchain-node-data-center.jpg'
   alt: 'Data center corridor with blue and purple lighting where blockchain node servers are hosted'
   caption: 'Dedicated server hardware is the typical home for blockchain full nodes and validators.'
 featured: true
