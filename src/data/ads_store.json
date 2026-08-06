@@ -1,20 +1,32 @@
 {
-  "enabled": false,
+  "enabled": true,
   "provider": "adsterra",
   "codes": {
-    "popunder": "",
-    "socialbar": "",
-    "nativeBanner": "",
-    "banner728x90": "",
-    "banner468x90": "",
-    "banner320x50": ""
+    "popunder": "<script>\n(function(){\n  console.info('[NodeHunt demo] Popunder injected above </head>. A real Adsterra popunder opens a new tab.');\n  try {\n    if (!sessionStorage.getItem('nodehunt_demo_popunder')) {\n      sessionStorage.setItem('nodehunt_demo_popunder', '1');\n      var w = window.open('', '_blank');\n      if (w) { w.document.write('<h2 style=\"font-family:Arial,sans-serif\">Demo popunder</h2><p style=\"font-family:Arial,sans-serif\">This is where the Adsterra popunder target page would load.</p>'); }\n    }\n  } catch (e) {}\n})();\n</script>",
+    "socialbar": "<script>\n(function(){\n  var bar = document.createElement('div');\n  bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 12px;background:#312e81;color:#ffffff;font:13px/1.2 Arial,sans-serif;border-top:1px solid #6366f1;';\n  bar.innerHTML = '<span style=\"background:#f59e0b;color:#000;font-weight:bold;padding:2px 6px;border-radius:4px;font-size:10px\">DEMO</span> Adsterra Social Bar (slides in above the footer)';\n  document.body.appendChild(bar);\n})();\n</script>",
+    "nativeBanner": "<script>\n(function(){\n  var box = document.createElement('div');\n  box.style.cssText = 'width:100%;max-width:360px;height:120px;margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0 14px;background:linear-gradient(135deg,#064e3b,#065f46);border:1px dashed #34d399;border-radius:12px;color:#ecfdf5;font-family:Arial,sans-serif;box-sizing:border-box;';\n  box.innerHTML = '<span style=\"background:#f59e0b;color:#000;font-weight:bold;padding:2px 8px;border-radius:4px;font-size:10px;align-self:flex-start\">DEMO</span><strong style=\"font-size:14px\">Native banner title here</strong><span style=\"font-size:12px;opacity:.85\">Adsterra native banner placeholder</span>';\n  var c = document.currentScript;\n  (c ? c.parentNode : document.body).appendChild(box);\n})();\n</script>",
+    "banner728x90": "<script>\n(function(){\n  var box = document.createElement('div');\n  box.style.cssText = 'width:100%;max-width:728px;height:90px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#1e293b,#334155);border:1px dashed #f59e0b;border-radius:10px;color:#f8fafc;font-family:Arial,sans-serif;box-sizing:border-box;';\n  box.innerHTML = '<span style=\"background:#f59e0b;color:#000;font-weight:bold;padding:2px 8px;border-radius:4px;font-size:11px\">DEMO</span> Adsterra banner 728x90';\n  var c = document.currentScript;\n  (c ? c.parentNode : document.body).appendChild(box);\n})();\n</script>",
+    "banner468x90": "<script>\n(function(){\n  var box = document.createElement('div');\n  box.style.cssText = 'width:100%;max-width:468px;height:90px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#1e293b,#334155);border:1px dashed #f59e0b;border-radius:10px;color:#f8fafc;font-family:Arial,sans-serif;box-sizing:border-box;';\n  box.innerHTML = '<span style=\"background:#f59e0b;color:#000;font-weight:bold;padding:2px 8px;border-radius:4px;font-size:11px\">DEMO</span> Adsterra banner 468x90';\n  var c = document.currentScript;\n  (c ? c.parentNode : document.body).appendChild(box);\n})();\n</script>",
+    "banner320x50": "<script>\n(function(){\n  var box = document.createElement('div');\n  box.style.cssText = 'width:100%;max-width:320px;height:50px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1e293b,#334155);border:1px dashed #f59e0b;border-radius:10px;color:#f8fafc;font-family:Arial,sans-serif;box-sizing:border-box;';\n  box.innerHTML = '<span style=\"background:#f59e0b;color:#000;font-weight:bold;padding:2px 8px;border-radius:4px;font-size:10px\">DEMO</span> Adsterra 320x50';\n  var c = document.currentScript;\n  (c ? c.parentNode : document.body).appendChild(box);\n})();\n</script>"
   },
   "slots": {
-    "topBanner": { "enabled": false },
-    "sidebar": { "enabled": false },
-    "inlineArticle": { "enabled": false },
-    "bottomBanner": { "enabled": false },
-    "footer": { "enabled": false },
-    "stickyBottom": { "enabled": false }
+    "topBanner": {
+      "enabled": true
+    },
+    "sidebar": {
+      "enabled": true
+    },
+    "inlineArticle": {
+      "enabled": true
+    },
+    "bottomBanner": {
+      "enabled": true
+    },
+    "footer": {
+      "enabled": true
+    },
+    "stickyBottom": {
+      "enabled": true
+    }
   }
 }
