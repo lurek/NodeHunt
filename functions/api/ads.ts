@@ -1,5 +1,5 @@
 import { getFile, putFile } from '../_lib/github';
-import { json, requireAdmin, onOptions } from '../_lib/helpers';
+import { json, requireAdminAsync, onOptions } from '../_lib/helpers';
 
 const ADS_PATH = 'src/data/ads_store.json';
 const AD_CODE_KEYS = ['popunder', 'socialbar', 'nativeBanner', 'banner728x90', 'banner468x90', 'banner320x50'];
@@ -26,7 +26,7 @@ export const onRequestGet = async (context: any) => {
 };
 
 export const onRequestPost = async (context: any) => {
-  if (!requireAdmin(context)) return json({ error: 'Unauthorized' }, 401);
+  if (!(await requireAdminAsync(context))) return json({ error: 'Unauthorized' }, 401);
   const env = context.env;
 
   let body: any;

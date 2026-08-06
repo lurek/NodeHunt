@@ -5,8 +5,29 @@ import { PostManager } from './PostManager';
 import { PostEditor, type EditingPost } from './PostEditor';
 import { AdManager } from './AdManager';
 import { IndexNowManager } from './IndexNowManager';
+import { SettingsManager } from './SettingsManager';
 
-type Tab = 'posts' | 'ads' | 'indexnow';
+type Tab = 'posts' | 'ads' | 'indexnow' | 'settings';
+type Theme = 'dark' | 'light';
+
+const THEME_STORAGE = 'nodehunt_admin_theme';
+
+function initialTheme(): Theme {
+  try {
+    return (document.documentElement.dataset.adminTheme as Theme) || 'dark';
+  } catch {
+    return 'dark';
+  }
+}
+
+function applyTheme(theme: Theme) {
+  document.documentElement.dataset.adminTheme = theme;
+  try {
+    localStorage.setItem(THEME_STORAGE, theme);
+  } catch {
+    /* ignore */
+  }
+}
 
 export function AdminApp() {
   const [authed, setAuthed] = useState(false);
@@ -14,9 +35,11 @@ export function AdminApp() {
   const [screen, setScreen] = useState<'list' | 'editor'>('list');
   const [editing, setEditing] = useState<EditingPost | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
+  const [theme, setTheme] = useState<Theme>(initialTheme);
 
   useEffect(() => {
     setAuthed(Boolean(sessionStorage.getItem('nodehunt_admin_key')));
+    setTheme(initialTheme());
   }, []);
 
   if (!authed) {
@@ -30,6 +53,14 @@ export function AdminApp() {
   function logout() {
     setAdminKey('');
     setAuthed(false);
+  }
+
+  function toggleTheme() {
+    setTheme((prev) => {
+      const next: Theme = prev === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      return next;
+    });
   }
 
   function openEditor(editingPost: EditingPost | null) {
@@ -51,8 +82,12 @@ export function AdminApp() {
             <button className={`admin-tab ${tab === 'posts' ? 'admin-tab-active' : ''}`} onClick={() => { setTab('posts'); closeEditor(); }}>Posts</button>
             <button className={`admin-tab ${tab === 'ads' ? 'admin-tab-active' : ''}`} onClick={() => setTab('ads')}>Ads</button>
             <button className={`admin-tab ${tab === 'indexnow' ? 'admin-tab-active' : ''}`} onClick={() => setTab('indexnow')}>IndexNow</button>
+            <button className={`admin-tab ${tab === 'settings' ? 'admin-tab-active' : ''}`} onClick={() => setTab('settings')}>Settings</button>
           </nav>
           <div className="admin-bar-actions">
+            <button className="admin-btn admin-theme-toggle" onClick={toggleTheme} title="Toggle color theme">
+              {theme === 'dark' ? 'Light' : 'Dark'}
+            </button>
             <a className="admin-btn" href="/" target="_blank" rel="noreferrer">View site ↗</a>
             <button className="admin-btn" onClick={logout}>Lock</button>
           </div>
@@ -67,6 +102,7 @@ export function AdminApp() {
         ))}
         {tab === 'ads' && <AdManager />}
         {tab === 'indexnow' && <IndexNowManager />}
+        {tab === 'settings' && <SettingsManager onPasswordChanged={logout} />}
       </main>
     </div>
   );

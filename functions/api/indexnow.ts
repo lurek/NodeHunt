@@ -1,4 +1,4 @@
-import { json, requireAdmin, onOptions } from '../_lib/helpers';
+import { json, requireAdminAsync, onOptions } from '../_lib/helpers';
 import { submitUrls } from '../_lib/indexnow';
 
 export const onRequestOptions = onOptions;
@@ -6,7 +6,7 @@ export const onRequestOptions = onOptions;
 export const onRequestGet = () => json({ status: 'IndexNow endpoint active' });
 
 export const onRequestPost = async (context: any) => {
-  if (!requireAdmin(context)) return json({ error: 'Unauthorized' }, 401);
+  if (!(await requireAdminAsync(context))) return json({ error: 'Unauthorized' }, 401);
   const env = context.env;
 
   let body: any;

@@ -10,6 +10,16 @@ import '@/styles/admin.css';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Admin — NodeHunt</title>
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('nodehunt_admin_theme');
+          document.documentElement.dataset.adminTheme = t === 'light' || t === 'dark' ? t : 'dark';
+        } catch (e) {
+          document.documentElement.dataset.adminTheme = 'dark';
+        }
+      })();
+    </script>
   </head>
   <body>
     <AdminApp client:load />

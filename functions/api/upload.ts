@@ -1,5 +1,5 @@
 import { getFile } from '../_lib/github';
-import { json, requireAdmin, onOptions } from '../_lib/helpers';
+import { json, requireAdminAsync, onOptions } from '../_lib/helpers';
 
 export const onRequestOptions = onOptions;
 
@@ -26,7 +26,7 @@ function matchesMagic(extension: string, base64: string): boolean {
 }
 
 export const onRequestPost = async (context: any) => {
-  if (!requireAdmin(context)) return json({ error: 'Unauthorized' }, 401);
+  if (!(await requireAdminAsync(context))) return json({ error: 'Unauthorized' }, 401);
   const env = context.env;
 
   let body: any;
