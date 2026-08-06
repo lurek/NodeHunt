@@ -1,10 +1,10 @@
 import adsStore from '../data/ads_store.json';
 
 export type AdCodeKey = 'popunder' | 'socialbar' | 'nativeBanner' | 'banner728x90' | 'banner468x90' | 'banner320x50';
-export type AdSlotKey = 'topBanner' | 'sidebar' | 'inlineArticle' | 'bottomBanner' | 'footer' | 'stickyBottom';
+export type AdSlotKey = 'topBanner' | 'sidebar' | 'inlineArticle' | 'midArticle' | 'bottomBanner' | 'footer' | 'stickyBottom';
 
 export const AD_CODE_KEYS: AdCodeKey[] = ['popunder', 'socialbar', 'nativeBanner', 'banner728x90', 'banner468x90', 'banner320x50'];
-export const AD_SLOT_KEYS: AdSlotKey[] = ['topBanner', 'sidebar', 'inlineArticle', 'bottomBanner', 'footer', 'stickyBottom'];
+export const AD_SLOT_KEYS: AdSlotKey[] = ['topBanner', 'sidebar', 'inlineArticle', 'midArticle', 'bottomBanner', 'footer', 'stickyBottom'];
 
 export const WIDE_BREAKPOINT = 728;
 export const MEDIUM_BREAKPOINT = 468;

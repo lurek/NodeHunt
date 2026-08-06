@@ -15,6 +15,7 @@ const isTop = slot === 'topBanner';
 <div
   class="ad-slot"
   data-ad-slot={slot}
+  data-pagefind-ignore
   data-ad-mode="banner"
   data-ad-native-below={isTop ? WIDE_BREAKPOINT : undefined}
   data-ad-sandbox={isTop && adsConfig.sandboxNative ? '1' : undefined}
