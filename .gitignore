@@ -8,6 +8,10 @@ dist/
 # local environment
 .env
 .env.*
+.wrangler/
+
+# reference copy of Stack Hive HQ (admin panel source)
+Stack Hive HQ/
 
 # logs
 *.log
@@ -15,3 +19,4 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+.dev.vars

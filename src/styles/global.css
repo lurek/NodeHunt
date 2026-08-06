@@ -66,4 +66,20 @@ button, input { font: inherit; }
 .prose pre { overflow-x: auto; padding: 1rem; border: 1px solid var(--line); border-radius: .75rem; background: #0b1020; }
 .prose table { display: block; overflow-x: auto; width: 100%; border-collapse: collapse; }
 .prose th, .prose td { padding: .75rem; border: 1px solid var(--line); text-align: left; }
+.prose-custom { font-size: 1.0625rem; }
+.prose-custom > * + * { margin-top: 1.35em; }
+.prose-custom h2, .prose-custom h3 { font-family: var(--font-display); line-height: 1.16; }
+.prose-custom h2 { margin-top: 2.4em; font-size: clamp(1.6rem, 3vw, 2.2rem); }
+.prose-custom h3 { margin-top: 2em; font-size: clamp(1.25rem, 2vw, 1.55rem); }
+.prose-custom h4 { margin-top: 1.6em; font-size: 1.15rem; }
+.prose-custom p, .prose-custom li { color: color-mix(in srgb, var(--text) 90%, var(--muted)); }
+.prose-custom a { color: var(--accent); }
+.prose-custom img { max-width: 100%; height: auto; border-radius: .9rem; margin-block: 1.5rem; }
+.prose-custom pre { overflow-x: auto; padding: 1rem; border: 1px solid var(--line); border-radius: .75rem; background: #0b1020; }
+.prose-custom code { font-size: .875em; }
+.prose-custom blockquote { margin-inline: 0; padding: 1rem 1.25rem; border-left: 3px solid var(--accent); border-radius: .5rem; background: var(--surface-raised); color: var(--muted); }
+.prose-custom table { display: block; overflow-x: auto; width: 100%; border-collapse: collapse; }
+.prose-custom th, .prose-custom td { padding: .75rem; border: 1px solid var(--line); text-align: left; }
+.prose-custom ul, .prose-custom ol { padding-left: 1.4rem; }
+.prose-custom iframe { max-width: 100%; border: 1px solid var(--line); border-radius: .75rem; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }

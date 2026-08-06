@@ -17,12 +17,15 @@
   },
   "dependencies": {
     "@astrojs/mdx": "latest",
+    "@astrojs/react": "^6.0.2",
     "@astrojs/rss": "latest",
     "@astrojs/sitemap": "latest",
     "@rolldown/binding-linux-x64-gnu": "^1.2.3",
     "@tailwindcss/vite": "latest",
     "astro": "latest",
     "pagefind": "latest",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "sharp": "latest",
     "tailwindcss": "latest"
   },
