@@ -3,11 +3,11 @@ import { adminFetch } from '@/lib/admin';
 import { AD_CODE_KEYS, AD_SLOT_KEYS } from '@/config/ads';
 
 const SLOT_NOTES: Record<string, string> = {
-  topBanner: 'Top of page · 728x90 → 468x90 → 320x50 · hidden below 728px so the sticky takes over',
-  sidebar: 'Sidebar · 728x90 → 468x90 → 320x50',
-  inlineArticle: 'Inside content · 728x90 → 468x90 → 320x50',
-  bottomBanner: 'End of article · 728x90 → 468x90 → 320x50',
-  footer: 'Above footer · 728x90 → 468x90 → 320x50',
+  topBanner: 'Top of page · 728x90 → 468x60 → 320x50 · hidden below 728px so the sticky takes over',
+  sidebar: 'Sidebar · 728x90 → 468x60 → 320x50',
+  inlineArticle: 'Inside content · 728x90 → 468x60 → 320x50',
+  bottomBanner: 'End of article · 728x90 → 468x60 → 320x50',
+  footer: 'Above footer · 728x90 → 468x60 → 320x50',
   stickyBottom: 'Fixed bottom bar · native banner on desktop, banner on smaller screens',
 };
 
@@ -16,7 +16,7 @@ const CODE_NOTES: Record<string, string> = {
   socialbar: 'Adsterra Social Bar JS tag (place above </body>)',
   nativeBanner: 'Adsterra Native Banner JS tag (sticky, desktop)',
   banner728x90: 'Banner 728x90 JS tag',
-  banner468x90: 'Banner 468x90 JS tag',
+  banner468x60: 'Banner 468x60 JS tag',
   banner320x50: 'Banner 320x50 JS tag',
 };
 
@@ -102,7 +102,7 @@ export function AdManager() {
           Provider
           <input className="admin-input" value={config.provider} onChange={(e) => setConfig({ ...config, provider: e.target.value })} placeholder="adsterra" />
         </label>
-        <p className="admin-hint">Paste the Adsterra JavaScript tags below. Banners swap responsively: 728x90 on wide screens, 468x90 on medium, 320x50 on small. The sticky bottom bar shows the native banner on desktop and a banner on smaller screens.</p>
+        <p className="admin-hint">Paste the Adsterra JavaScript tags below. Banners swap responsively: 728x90 on wide screens, 468x60 on medium, 320x50 on small. The sticky bottom bar shows the native banner on desktop and a banner on smaller screens.</p>
       </div>
 
       <div className="admin-section">

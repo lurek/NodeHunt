@@ -1,18 +1,18 @@
 import adsStore from '../data/ads_store.json';
 
-export type AdCodeKey = 'popunder' | 'socialbar' | 'nativeBanner' | 'banner728x90' | 'banner468x90' | 'banner320x50';
+export type AdCodeKey = 'popunder' | 'socialbar' | 'nativeBanner' | 'banner728x90' | 'banner468x60' | 'banner320x50';
 export type AdSlotKey = 'topBanner' | 'sidebar' | 'inlineArticle' | 'midArticle' | 'bottomBanner' | 'footer' | 'stickyBottom';
 
-export const AD_CODE_KEYS: AdCodeKey[] = ['popunder', 'socialbar', 'nativeBanner', 'banner728x90', 'banner468x90', 'banner320x50'];
+export const AD_CODE_KEYS: AdCodeKey[] = ['popunder', 'socialbar', 'nativeBanner', 'banner728x90', 'banner468x60', 'banner320x50'];
 export const AD_SLOT_KEYS: AdSlotKey[] = ['topBanner', 'sidebar', 'inlineArticle', 'midArticle', 'bottomBanner', 'footer', 'stickyBottom'];
 
 export const WIDE_BREAKPOINT = 728;
 export const MEDIUM_BREAKPOINT = 468;
 
-/** Banner size for a given viewport width: 728x90 → 468x90 → 320x50. */
+/** Banner size for a given viewport width: 728x90 → 468x60 → 320x50. */
 export function sizeForWidth(width: number): string {
   if (width >= WIDE_BREAKPOINT) return '728x90';
-  if (width >= MEDIUM_BREAKPOINT) return '468x90';
+  if (width >= MEDIUM_BREAKPOINT) return '468x60';
   return '320x50';
 }
 
