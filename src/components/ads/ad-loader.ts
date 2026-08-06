@@ -1,33 +1,16 @@
 import { sizeForWidth, WIDE_BREAKPOINT } from '@/config/ads';
 
-function recreateScripts(wrap: HTMLElement): void {
-  for (const old of Array.from(wrap.querySelectorAll('script'))) {
-    const s = document.createElement('script');
-    if (old.type) s.type = old.type;
-    if (old.src) {
-      s.async = true;
-      s.src = old.src;
-    } else {
-      s.text = old.text;
-    }
-    old.replaceWith(s);
-  }
-}
-
-function injectCode(container: HTMLElement, html: string): void {
-  const target = container.querySelector<HTMLElement>('.ad-code');
-  if (!target) return;
-  target.replaceChildren();
-  const wrap = document.createElement('div');
-  wrap.className = 'ad-inner';
-  wrap.innerHTML = html;
-  recreateScripts(wrap);
-  target.appendChild(wrap);
-}
-
 let adUid = 0;
 
-/** Renders ad HTML inside a sandboxed iframe (no top-navigation, opaque origin) with auto-height via postMessage. */
+/**
+ * Renders ad HTML inside a sandboxed iframe (opaque origin, no top-navigation)
+ * with auto-height via postMessage.
+ *
+ * Every slot is sandboxed on purpose: the Adsterra banner tag relies on a single
+ * global `window.atOptions` object, and the first `invoke.js` to execute consumes
+ * and deletes it. Running each ad in its own iframe gives it an isolated window,
+ * so multiple banner units on the same page can render independently.
+ */
 function injectSandboxed(container: HTMLElement, html: string): void {
   const target = container.querySelector<HTMLElement>('.ad-code');
   if (!target) return;
@@ -43,7 +26,7 @@ function injectSandboxed(container: HTMLElement, html: string): void {
   const resizeProbe =
     '(function(){var s=function(){try{parent.postMessage({nodehuntAdHeight:document.body.scrollHeight,uid:"' +
     uid +
-    '"},"*")}catch(e){}};window.addEventListener("load",s);setTimeout(s,300);window.addEventListener("resize",s);})();';
+    '"},"*")}catch(e){}};window.addEventListener("load",s);window.addEventListener("resize",s);s();var i=0,t=setInterval(function(){s();if(++i>12)clearInterval(t)},500);})();';
   frame.srcdoc =
     '<!doctype html><html><head><base target="_blank"></head><body style="margin:0;background:transparent">' +
     html +
@@ -94,8 +77,7 @@ function activate(slot: HTMLElement): void {
   if (slot.dataset.activeSize === size) return;
   slot.dataset.activeSize = size;
   slot.classList.remove('ad-empty');
-  if (slot.dataset.adSandbox && size === 'native') injectSandboxed(slot, tpl.innerHTML);
-  else injectCode(slot, tpl.innerHTML);
+  injectSandboxed(slot, tpl.innerHTML);
 }
 
 function runDeferredSocialbar(): void {
