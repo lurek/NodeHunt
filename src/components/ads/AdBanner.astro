@@ -7,14 +7,13 @@ interface Props {
 
 const { slot } = Astro.props;
 const cfg = adsConfig.slots[slot];
-const active = adsConfig.enabled && cfg.enabled;
+if (!adsConfig.enabled || !cfg.enabled) return;
 const codes = adsConfig.codes;
-if (!active) return;
-
-const minWidth = slot === 'topBanner' ? WIDE_BREAKPOINT : 0;
+const isTop = slot === 'topBanner';
 ---
 
-<div class="ad-slot" data-ad-slot={slot} data-ad-mode="banner" data-ad-min-width={minWidth}>
+<div class="ad-slot" data-ad-slot={slot} data-ad-mode="banner" data-ad-native-below={isTop ? WIDE_BREAKPOINT : undefined}>
+  {isTop && <template data-ad-size="native" set:html={codes.nativeBanner}></template>}
   <template data-ad-size="728x90" set:html={codes.banner728x90}></template>
   <template data-ad-size="468x90" set:html={codes.banner468x90}></template>
   <template data-ad-size="320x50" set:html={codes.banner320x50}></template>

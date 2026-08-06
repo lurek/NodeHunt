@@ -23,19 +23,15 @@ function injectCode(container: HTMLElement, html: string): void {
 
 function activate(slot: HTMLElement): void {
   const mode = slot.dataset.adMode || 'banner';
-  const minWidth = Number(slot.dataset.adMinWidth || '0');
   const width = window.innerWidth;
 
   let size: string;
   if (mode === 'sticky') {
     size = width >= WIDE_BREAKPOINT ? 'native' : sizeForWidth(width);
   } else {
-    if (width < minWidth) {
-      slot.dataset.activeSize = '';
-      slot.classList.add('ad-empty');
-      return;
-    }
-    size = sizeForWidth(width);
+    const nativeBelow = Number(slot.dataset.adNativeBelow || '0');
+    if (nativeBelow && width < nativeBelow) size = 'native';
+    else size = sizeForWidth(width);
   }
 
   const tpl = slot.querySelector<HTMLTemplateElement>(`template[data-ad-size="${size}"]`);

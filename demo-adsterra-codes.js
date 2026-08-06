@@ -12,27 +12,37 @@
  */
 
 export const demoCodes = {
-  /** Injected above </head>. Logs to console and tries to open a demo popup once per session. */
+  /** Injected above </head>. Logs to console immediately; opens the demo popup on the first tap/click (browsers block auto window.open). */
   popunder: `<script>
 (function(){
-  console.info('[NodeHunt demo] Popunder injected above </head>. A real Adsterra popunder opens a new tab.');
-  try {
-    if (!sessionStorage.getItem('nodehunt_demo_popunder')) {
-      sessionStorage.setItem('nodehunt_demo_popunder', '1');
+  var shown = false;
+  function openDemo(){
+    if (shown) return;
+    shown = true;
+    try {
       var w = window.open('', '_blank');
       if (w) { w.document.write('<h2 style="font-family:Arial,sans-serif">Demo popunder</h2><p style="font-family:Arial,sans-serif">This is where the Adsterra popunder target page would load.</p>'); }
-    }
-  } catch (e) {}
+    } catch (e) {}
+  }
+  console.info('[NodeHunt demo] Popunder injected above </head>.');
+  window.addEventListener('pointerdown', openDemo, { once: true });
+  window.addEventListener('keydown', openDemo, { once: true });
 })();
 </script>`,
 
-  /** Injected just before </body>. Slides a purple bar in at the very bottom. */
+  /** Injected just before </body>. Slides a purple bar in at the very bottom (above the sticky ad). */
   socialbar: `<script>
 (function(){
-  var bar = document.createElement('div');
-  bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 12px;background:#312e81;color:#ffffff;font:13px/1.2 Arial,sans-serif;border-top:1px solid #6366f1;';
-  bar.innerHTML = '<span style="background:#f59e0b;color:#000;font-weight:bold;padding:2px 6px;border-radius:4px;font-size:10px">DEMO</span> Adsterra Social Bar (slides in above the footer)';
-  document.body.appendChild(bar);
+  function show(){
+    if (document.getElementById('nodehunt-demo-socialbar')) return;
+    var bar = document.createElement('div');
+    bar.id = 'nodehunt-demo-socialbar';
+    bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 12px;background:#312e81;color:#ffffff;font:13px/1.2 Arial,sans-serif;border-top:1px solid #6366f1;';
+    bar.innerHTML = '<span style="background:#f59e0b;color:#000;font-weight:bold;padding:2px 6px;border-radius:4px;font-size:10px">DEMO</span> Adsterra Social Bar (slides in above the footer)';
+    document.body.appendChild(bar);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', show);
+  else show();
 })();
 </script>`,
 
