@@ -9,16 +9,17 @@
 
   function loadPagefind() {
     if (!pagefindPromise) {
-      var url = '/pagefind/pagefind.js?ts=' + (Date.now());
-      pagefindPromise = import(/* @vite-ignore */ url).then(function (pf) {
-        if (pf && typeof pf.init === 'function') {
-          return pf.init().then(function () { return pf; });
-        }
-        return pf;
-      }).catch(function (err) {
-        pagefindPromise = null;
-        throw err;
-      });
+      pagefindPromise = import('/pagefind/pagefind.js')
+        .then(function (pf) {
+          if (pf && typeof pf.options === 'function') {
+            return pf.options({ noWorker: true }).then(function () { return pf; });
+          }
+          return pf;
+        })
+        .catch(function (err) {
+          pagefindPromise = null;
+          throw err;
+        });
     }
     return pagefindPromise;
   }
@@ -79,7 +80,10 @@
       })
       .catch(function (err) {
         console.error('Pagefind search error:', err);
-        if (root._nodehuntSeq === seq && status) status.textContent = 'Search is unavailable right now.';
+        if (root._nodehuntSeq === seq && status) {
+          var msg = (err && err.message) ? err.message : String(err || '');
+          status.textContent = 'Search is unavailable right now. ' + (msg ? '(' + msg + ')' : '');
+        }
       });
   }
 
