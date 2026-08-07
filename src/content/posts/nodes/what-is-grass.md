@@ -9,7 +9,7 @@ category: depin
 tags: [depin, nodes]
 cover:
   image: '../../../assets/content/bandwidth-cables.jpg'
-  alt: 'Cable management and network switch with thick fiber optic cables, representing the bandwidth Grass participants contribute'
+  alt: 'Blue network cable plugged into a router, representing the internet bandwidth Grass participants contribute'
   caption: 'Grass rewards bandwidth contribution — the resource being shared is your internet connection itself.'
 featured: true
 editorPick: false

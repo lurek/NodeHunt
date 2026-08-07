@@ -9,8 +9,8 @@ category: depin
 tags: [depin, nodes]
 cover:
   image: '../../../assets/content/dawn-infrastructure.jpg'
-  alt: 'Solar panels and data infrastructure at a renewable energy facility, representing the physical buildout decentralized broadband depends on'
-  caption: 'Wireless networks are physical first: coverage, backhaul, and hardware decide whether a token model has anything to sell.'
+  alt: 'Telecommunications tower with antennas under a blue sky, representing the physical infrastructure a decentralized carrier depends on'
+  caption: 'Wireless networks are physical first: towers, spectrum, and backhaul decide whether a token model has anything to sell.'
 featured: false
 editorPick: true
 trendingScore: 84

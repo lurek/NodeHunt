@@ -14,6 +14,20 @@
     return pagefindPromise;
   }
 
+  function cleanExcerpt(excerpt, title) {
+    var text = String(excerpt || '')
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (title && text.lastIndexOf(title, 0) === 0) {
+      text = text.slice(title.length).replace(/^[.,:;!?\s-]+/, '').trim();
+    }
+    if (text.length > 220) {
+      text = text.slice(0, 217).replace(/\s+\S*$/, '') + '…';
+    }
+    return text;
+  }
+
   function runSearch(root) {
     var input = root.querySelector('input[type="search"]');
     var results = root.querySelector('.search-results');
@@ -39,7 +53,7 @@
           ? items
               .map(function (item) {
                 var title = escapeHtml((item.meta && item.meta.title) || '');
-                var excerpt = item.excerpt ? '<span>' + escapeHtml(item.excerpt) + '</span>' : '';
+                var excerpt = item.excerpt ? '<span>' + escapeHtml(cleanExcerpt(item.excerpt, (item.meta && item.meta.title) || '')) + '</span>' : '';
                 return '<a class="result" href="' + item.url + '"><strong>' + title + '</strong>' + excerpt + '</a>';
               })
               .join('')
