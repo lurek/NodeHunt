@@ -22,8 +22,8 @@
     if (title && text.lastIndexOf(title, 0) === 0) {
       text = text.slice(title.length).replace(/^[.,:;!?\s-]+/, '').trim();
     }
-    if (text.length > 220) {
-      text = text.slice(0, 217).replace(/\s+\S*$/, '') + '…';
+    if (text.length > 110) {
+      text = text.slice(0, 107).replace(/\s+\S*$/, '') + '…';
     }
     return text;
   }
