@@ -9,7 +9,16 @@
 
   function loadPagefind() {
     if (!pagefindPromise) {
-      pagefindPromise = import('/pagefind/pagefind.js');
+      var url = '/pagefind/pagefind.js?ts=' + (Date.now());
+      pagefindPromise = import(/* @vite-ignore */ url).then(function (pf) {
+        if (pf && typeof pf.init === 'function') {
+          return pf.init().then(function () { return pf; });
+        }
+        return pf;
+      }).catch(function (err) {
+        pagefindPromise = null;
+        throw err;
+      });
     }
     return pagefindPromise;
   }
@@ -68,7 +77,8 @@
               .join('')
           : '<p class="search-empty">No matching articles yet. Try a broader term.</p>';
       })
-      .catch(function () {
+      .catch(function (err) {
+        console.error('Pagefind search error:', err);
         if (root._nodehuntSeq === seq && status) status.textContent = 'Search is unavailable right now.';
       });
   }
