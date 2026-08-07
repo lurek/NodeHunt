@@ -53,8 +53,17 @@
           ? items
               .map(function (item) {
                 var title = escapeHtml((item.meta && item.meta.title) || '');
-                var excerpt = item.excerpt ? '<span>' + escapeHtml(cleanExcerpt(item.excerpt, (item.meta && item.meta.title) || '')) + '</span>' : '';
-                return '<a class="result" href="' + item.url + '"><strong>' + title + '</strong>' + excerpt + '</a>';
+                var category = escapeHtml((item.meta && item.meta.category) || 'ARTICLE');
+                var excerpt = item.excerpt ? '<p class="result-excerpt">' + escapeHtml(cleanExcerpt(item.excerpt, (item.meta && item.meta.title) || '')) + '</p>' : '';
+                return (
+                  '<a class="result-card" href="' + item.url + '">' +
+                    '<div class="result-content">' +
+                      '<h3 class="result-title">' + title + '</h3>' +
+                      excerpt +
+                    '</div>' +
+                    '<span class="result-badge">' + category + '</span>' +
+                  '</a>'
+                );
               })
               .join('')
           : '<p class="search-empty">No matching articles yet. Try a broader term.</p>';
