@@ -16,7 +16,7 @@ editorPick: false
 trendingScore: 86
 seo: { noindex: false }
 sources: [{ label: bitcoin.org full node guide, url: https://bitcoin.org/en/full-node }, { label: ethereum.org nodes and clients, url: https://ethereum.org/developers/docs/nodes-and-clients/ }, { label: Bitcoin developer documentation, url: https://developer.bitcoin.org/ }]
-relatedSlugs: [beginners-guide-to-running-nodes]
+relatedSlugs: [beginners-guide-to-running-nodes, solana-validator-guide]
 ---
 
 The best node for a beginner is not the most popular one — it is the one whose hardware, cost, and ongoing responsibility you can actually sustain. Every node type asks for a different level of commitment, from a light client that runs on your phone to a validator that can penalize you for downtime. This guide compares the main options through four lenses: what it does, what it costs, what it needs, and what happens when something goes wrong. It is a companion to our step-by-step [beginner's guide to running a node](/articles/beginners-guide-to-running-nodes/).

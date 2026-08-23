@@ -16,6 +16,7 @@ editorPick: true
 trendingScore: 88
 seo: { noindex: false }
 sources: [{ label: NIST AI Risk Management Framework, url: https://www.nist.gov/itl/ai-risk-management-framework }, { label: Akash Network docs, url: https://akash.network/docs/ }, { label: Bittensor, url: https://bittensor.com/ }, { label: Gensyn docs, url: https://docs.gensyn.ai/ }]
+relatedSlugs: [decentralized-ai-compute-nodes, web3-infrastructure-explained]
 ---
 
 AI and blockchain overlap in a few practical areas: coordinating compute, recording provenance, managing incentives, and sharing resources. They do not automatically make each other more useful. A token does not make a model smarter, and an immutable ledger does not make a prediction more accurate. This post separates the real infrastructure work from the marketing, using the NIST AI Risk Management Framework as a grounding reference for what trustworthy AI systems actually need.
