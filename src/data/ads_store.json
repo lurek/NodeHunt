@@ -1,14 +1,15 @@
 {
   "enabled": true,
   "provider": "adsterra",
+  "sandboxNative": false,
   "socialbarAfterAds": true,
   "codes": {
     "popunder": "",
     "socialbar": "<script src=\"https://wistfulseverely.com/bc/87/fb/bc87fb52e119fa03b04e04f9dd8a86bf.js\"></script>\n",
-    "nativeBanner": "<script async=\"async\" data-cfasync=\"false\" src=\"https://wistfulseverely.com/9c82eaf8854b4384e45bf9884eb8e4f8/invoke.js\"></script>\n<div id=\"container-9c82eaf8854b4384e45bf9884eb8e4f8\"></div>\n",
-    "banner728x90": "<script>\n  atOptions = {\n    'key' : 'cee45bfd07770963919acec1f378ff29',\n    'format' : 'iframe',\n    'height' : 90,\n    'width' : 728,\n    'params' : {}\n  };\n</script>\n<script src=\"https://wistfulseverely.com/cee45bfd07770963919acec1f378ff29/invoke.js\"></script>\n",
-    "banner468x60": "<script>\n  atOptions = {\n    'key' : '41ead5168c2bdf8ba1c97e55f880888c',\n    'format' : 'iframe',\n    'height' : 60,\n    'width' : 468,\n    'params' : {}\n  };\n</script>\n<script src=\"https://wistfulseverely.com/41ead5168c2bdf8ba1c97e55f880888c/invoke.js\"></script>\n",
-    "banner320x50": "<script>\n  atOptions = {\n    'key' : '15f9d6e65604ac02a0671aa76c85ca51',\n    'format' : 'iframe',\n    'height' : 50,\n    'width' : 320,\n    'params' : {}\n  };\n</script>\n<script src=\"https://wistfulseverely.com/15f9d6e65604ac02a0671aa76c85ca51/invoke.js\"></script>\n"
+    "nativeBanner": "<!-- BEGIN AADS AD UNIT 2453524 -->\n\n<div id=\"frame\" style=\"width: 100%;margin: auto;position: relative; z-index: 99998;\">\n          <iframe data-aa='2453524' src='//acceptable.a-ads.com/2453524/?size=Adaptive'\n                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>\n        </div>\n\n<!-- END AADS AD UNIT 2453524 -->\n",
+    "banner728x90": "<!-- BEGIN AADS AD UNIT 2453524 -->\n\n<div id=\"frame\" style=\"width: 100%;margin: auto;position: relative; z-index: 99998;\">\n          <iframe data-aa='2453524' src='//acceptable.a-ads.com/2453524/?size=Adaptive'\n                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>\n        </div>\n\n<!-- END AADS AD UNIT 2453524 -->",
+    "banner468x90": "",
+    "banner320x50": "<!-- BEGIN AADS AD UNIT 2453524 -->\n\n<div id=\"frame\" style=\"width: 100%;margin: auto;position: relative; z-index: 99998;\">\n          <iframe data-aa='2453524' src='//acceptable.a-ads.com/2453524/?size=Adaptive'\n                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>\n        </div>\n\n<!-- END AADS AD UNIT 2453524 -->"
   },
   "slots": {
     "topBanner": {
@@ -18,9 +19,6 @@
       "enabled": true
     },
     "inlineArticle": {
-      "enabled": true
-    },
-    "midArticle": {
       "enabled": true
     },
     "bottomBanner": {
