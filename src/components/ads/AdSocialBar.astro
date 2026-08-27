@@ -1,12 +1,12 @@
 ---
 import { adsConfig } from '@/config/ads';
 
-const code = adsConfig.enabled && adsConfig.codes.socialbar ? adsConfig.codes.socialbar : '';
+const code = adsConfig?.enabled && adsConfig?.codes?.socialbar ? adsConfig.codes.socialbar : '';
 if (!code) return;
 ---
 
 {
-  adsConfig.socialbarAfterAds ? (
+  adsConfig?.socialbarAfterAds ? (
     <div class="ad-socialbar" data-ad-defer="1">
       <template data-ad-code set:html={code}></template>
     </div>

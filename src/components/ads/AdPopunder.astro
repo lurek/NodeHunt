@@ -1,7 +1,7 @@
 ---
 import { adsConfig } from '@/config/ads';
 
-const code = adsConfig.enabled && adsConfig.codes.popunder ? adsConfig.codes.popunder : '';
+const code = adsConfig?.enabled && adsConfig?.codes?.popunder ? adsConfig.codes.popunder : '';
 if (!code) return;
 ---
 

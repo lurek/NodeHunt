@@ -1,9 +1,9 @@
 ---
 import { adsConfig } from '@/config/ads';
 
-const cfg = adsConfig.slots.stickyBottom;
-if (!adsConfig.enabled || !cfg.enabled) return;
-const codes = adsConfig.codes;
+const cfg = adsConfig?.slots?.stickyBottom;
+if (!adsConfig?.enabled || !cfg?.enabled) return;
+const codes = adsConfig?.codes ?? ({} as Record<string, string>);
 ---
 
 <div

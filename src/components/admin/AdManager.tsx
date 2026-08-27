@@ -6,6 +6,7 @@ const SLOT_NOTES: Record<string, string> = {
   topBanner: 'Top of page · 728x90 → 468x60 → 320x50 · hidden below 728px so the sticky takes over',
   sidebar: 'Sidebar · 728x90 → 468x60 → 320x50',
   inlineArticle: 'Inside content · 728x90 → 468x60 → 320x50',
+  midArticle: 'Middle of long articles · 728x90 → 468x60 → 320x50',
   bottomBanner: 'End of article · 728x90 → 468x60 → 320x50',
   footer: 'Above footer · 728x90 → 468x60 → 320x50',
   stickyBottom: 'Fixed bottom bar · native banner on desktop, banner on smaller screens',

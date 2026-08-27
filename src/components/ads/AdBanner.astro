@@ -6,9 +6,9 @@ interface Props {
 }
 
 const { slot } = Astro.props;
-const cfg = adsConfig.slots[slot];
-if (!adsConfig.enabled || !cfg.enabled) return;
-const codes = adsConfig.codes;
+const cfg = adsConfig?.slots?.[slot];
+if (!adsConfig?.enabled || !cfg?.enabled) return;
+const codes = adsConfig?.codes ?? ({} as Record<string, string>);
 const isTop = slot === 'topBanner';
 ---
 

@@ -8,7 +8,7 @@
     "socialbar": "<script src=\"https://wistfulseverely.com/bc/87/fb/bc87fb52e119fa03b04e04f9dd8a86bf.js\"></script>\n",
     "nativeBanner": "<!-- BEGIN AADS AD UNIT 2453524 -->\n\n<div id=\"frame\" style=\"width: 100%;margin: auto;position: relative; z-index: 99998;\">\n          <iframe data-aa='2453524' src='//acceptable.a-ads.com/2453524/?size=Adaptive'\n                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>\n        </div>\n\n<!-- END AADS AD UNIT 2453524 -->\n",
     "banner728x90": "<!-- BEGIN AADS AD UNIT 2453524 -->\n\n<div id=\"frame\" style=\"width: 100%;margin: auto;position: relative; z-index: 99998;\">\n          <iframe data-aa='2453524' src='//acceptable.a-ads.com/2453524/?size=Adaptive'\n                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>\n        </div>\n\n<!-- END AADS AD UNIT 2453524 -->",
-    "banner468x90": "",
+    "banner468x60": "",
     "banner320x50": "<!-- BEGIN AADS AD UNIT 2453524 -->\n\n<div id=\"frame\" style=\"width: 100%;margin: auto;position: relative; z-index: 99998;\">\n          <iframe data-aa='2453524' src='//acceptable.a-ads.com/2453524/?size=Adaptive'\n                            style='border:0; padding:0; width:70%; height:auto; overflow:hidden;display: block;margin: auto'></iframe>\n        </div>\n\n<!-- END AADS AD UNIT 2453524 -->"
   },
   "slots": {
@@ -19,6 +19,9 @@
       "enabled": true
     },
     "inlineArticle": {
+      "enabled": true
+    },
+    "midArticle": {
       "enabled": true
     },
     "bottomBanner": {

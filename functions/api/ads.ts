@@ -2,8 +2,8 @@ import { getFile, putFile } from '../_lib/github';
 import { json, requireAdminAsync, onOptions } from '../_lib/helpers';
 
 const ADS_PATH = 'src/data/ads_store.json';
-const AD_CODE_KEYS = ['popunder', 'socialbar', 'nativeBanner', 'banner728x90', 'banner468x90', 'banner320x50'];
-const AD_SLOT_KEYS = ['topBanner', 'sidebar', 'inlineArticle', 'bottomBanner', 'footer', 'stickyBottom'];
+const AD_CODE_KEYS = ['popunder', 'socialbar', 'nativeBanner', 'banner728x90', 'banner468x60', 'banner320x50'];
+const AD_SLOT_KEYS = ['topBanner', 'sidebar', 'inlineArticle', 'midArticle', 'bottomBanner', 'footer', 'stickyBottom'];
 
 function decodeUtf8(base64: string): string {
   const binary = atob(base64);
