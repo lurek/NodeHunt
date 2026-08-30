@@ -1,5 +1,5 @@
 ---
-import { adsConfig, type AdSlotKey, WIDE_BREAKPOINT } from '@/config/ads';
+import { adsConfig, type AdSlotKey } from '@/config/ads';
 
 interface Props {
   slot: AdSlotKey;
@@ -9,7 +9,6 @@ const { slot } = Astro.props;
 const cfg = adsConfig?.slots?.[slot];
 if (!adsConfig?.enabled || !cfg?.enabled) return;
 const codes = adsConfig?.codes ?? ({} as Record<string, string>);
-const isTop = slot === 'topBanner';
 ---
 
 <div
@@ -17,11 +16,8 @@ const isTop = slot === 'topBanner';
   data-ad-slot={slot}
   data-pagefind-ignore
   data-ad-mode="banner"
-  data-ad-native-below={isTop ? WIDE_BREAKPOINT : undefined}
 >
-  {isTop && <template data-ad-size="native" set:html={codes.nativeBanner}></template>}
   <template data-ad-size="728x90" set:html={codes.banner728x90}></template>
-  <template data-ad-size="468x60" set:html={codes.banner468x60}></template>
   <template data-ad-size="320x50" set:html={codes.banner320x50}></template>
   <div class="ad-code"></div>
   <span class="ad-label">Advertisement</span>

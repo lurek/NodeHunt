@@ -1,4 +1,4 @@
-import { sizeForWidth, WIDE_BREAKPOINT } from '@/config/ads';
+import { sizeForWidth } from '@/config/ads';
 
 const BANNER_SIZES = new Set(['728x90', '468x60', '320x50']);
 
@@ -47,33 +47,7 @@ function runScripts(html: string, container: HTMLElement): void {
 }
 
 function resolveSize(slot: HTMLElement, width: number): string {
-  const mode = slot.dataset.adMode || 'banner';
-  if (mode === 'sticky') {
-    return width >= WIDE_BREAKPOINT ? 'native' : sizeForWidth(width);
-  }
-  const nativeBelow = Number(slot.dataset.adNativeBelow || '0');
-  if (nativeBelow && width < nativeBelow) return 'native';
   return sizeForWidth(width);
-}
-
-/**
- * The Adsterra banner tag is built around a single global `window.atOptions`
- * object: each banner's inline script writes it, and the first `invoke.js` to
- * execute consumes and deletes it. Concurrent banner units therefore race, and
- * only the first one to run renders. Ads are injected one at a time, and each
- * banner slot waits for the previous slot's `invoke.js` to consume `atOptions`
- * before it writes its own.
- */
-function waitForAtOptionsFree(timeoutMs = 3000): Promise<void> {
-  const w = window as unknown as { atOptions?: unknown };
-  return new Promise((resolve) => {
-    const start = Date.now();
-    const check = () => {
-      if (w.atOptions === undefined || Date.now() - start >= timeoutMs) resolve();
-      else setTimeout(check, 100);
-    };
-    check();
-  });
 }
 
 function activate(slot: HTMLElement): Promise<void> {
@@ -87,11 +61,6 @@ function activate(slot: HTMLElement): Promise<void> {
   if (slot.dataset.activeSize === size) return Promise.resolve();
   slot.dataset.activeSize = size;
   slot.classList.remove('ad-empty');
-  if (BANNER_SIZES.has(size)) {
-    return waitForAtOptionsFree().then(() => {
-      if (slot.dataset.activeSize === size) injectCode(slot, tpl.innerHTML);
-    });
-  }
   injectCode(slot, tpl.innerHTML);
   return Promise.resolve();
 }

@@ -9,10 +9,9 @@ export const AD_SLOT_KEYS: AdSlotKey[] = ['topBanner', 'sidebar', 'inlineArticle
 export const WIDE_BREAKPOINT = 728;
 export const MEDIUM_BREAKPOINT = 468;
 
-/** Banner size for a given viewport width: 728x90 → 468x60 → 320x50. */
+/** Banner size for a given viewport width: >=728 -> 728x90, <728 -> 320x50. */
 export function sizeForWidth(width: number): string {
   if (width >= WIDE_BREAKPOINT) return '728x90';
-  if (width >= MEDIUM_BREAKPOINT) return '468x60';
   return '320x50';
 }
 

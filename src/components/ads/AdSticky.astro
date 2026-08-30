@@ -11,8 +11,7 @@ const codes = adsConfig?.codes ?? ({} as Record<string, string>);
   data-ad-slot="stickyBottom"
   data-ad-mode="sticky"
 >
-  <template data-ad-size="native" set:html={codes.nativeBanner}></template>
-  <template data-ad-size="468x60" set:html={codes.banner468x60}></template>
+  <template data-ad-size="728x90" set:html={codes.banner728x90}></template>
   <template data-ad-size="320x50" set:html={codes.banner320x50}></template>
   <button class="ad-close" type="button" aria-label="Close advertisement">&times;</button>
   <div class="ad-code"></div>
