@@ -1,12 +1,12 @@
 {
   "enabled": true,
-  "provider": "aads",
+  "provider": "adsterra",
   "sandboxNative": false,
   "socialbarAfterAds": true,
   "codes": {
     "popunder": "",
     "socialbar": "<script src=\"https://wistfulseverely.com/bc/87/fb/bc87fb52e119fa03b04e04f9dd8a86bf.js\"></script>\n",
-    "nativeBanner": "",
+    "nativeBanner": "<script async=\"async\" data-cfasync=\"false\" src=\"https://wistfulseverely.com/9c82eaf8854b4384e45bf9884eb8e4f8/invoke.js\"></script> <div id=\"container-9c82eaf8854b4384e45bf9884eb8e4f8\"></div>",
     "banner728x90": "<!-- BEGIN AADS AD UNIT 2453524 -->\n\n<div id=\"frame\" style=\"width: 728px;margin: auto;z-index: 99998;height: auto\">\n          <iframe data-aa='2453524' src='//ad.a-ads.com/2453524/?size=728x90'\n                            style='border:0; padding:0; width:728px; height:90px; overflow:hidden;display: block;margin: auto'></iframe>\n        </div>\n\n<!-- END AADS AD UNIT 2453524 -->",
     "banner468x60": "",
     "banner320x50": "<!-- BEGIN AADS AD UNIT 2453829 -->\n\n<div id=\"frame\" style=\"width: 320px;margin: auto;z-index: 99998;height: auto\">\n          <iframe data-aa='2453829' src='//ad.a-ads.com/2453829/?size=320x50'\n                            style='border:0; padding:0; width:320px; height:50px; overflow:hidden;display: block;margin: auto'></iframe>\n        </div>\n\n<!-- END AADS AD UNIT 2453829 -->"

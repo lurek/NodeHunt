@@ -3,7 +3,7 @@ import { adminFetch } from '@/lib/admin';
 import { AD_CODE_KEYS, AD_SLOT_KEYS } from '@/config/ads';
 
 const SLOT_NOTES: Record<string, string> = {
-  topBanner: 'Top of page · 728x90 → 468x60 → 320x50 · hidden below 728px so the sticky takes over',
+  topBanner: 'Top of page · Native responsive banner (desktop & mobile)',
   sidebar: 'Sidebar · 728x90 → 468x60 → 320x50',
   inlineArticle: 'Inside content · 728x90 → 468x60 → 320x50',
   midArticle: 'Middle of long articles · 728x90 → 468x60 → 320x50',
@@ -15,7 +15,7 @@ const SLOT_NOTES: Record<string, string> = {
 const CODE_NOTES: Record<string, string> = {
   popunder: 'Adsterra Popunder JS tag (place above </head>)',
   socialbar: 'Adsterra Social Bar JS tag (place above </body>)',
-  nativeBanner: 'Adsterra Native Banner JS tag (sticky, desktop)',
+  nativeBanner: 'Adsterra Native Banner JS tag (Top banner)',
   banner728x90: 'Banner 728x90 JS tag',
   banner468x60: 'Banner 468x60 JS tag',
   banner320x50: 'Banner 320x50 JS tag',

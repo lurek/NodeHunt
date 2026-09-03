@@ -51,6 +51,7 @@ function resolveSize(slot: HTMLElement, width: number): string {
 }
 
 function activate(slot: HTMLElement): Promise<void> {
+  if (slot.dataset.adMode === 'native') return Promise.resolve();
   const size = resolveSize(slot, window.innerWidth);
   const tpl = slot.querySelector<HTMLTemplateElement>(`template[data-ad-size="${size}"]`);
   if (!tpl || !tpl.innerHTML.trim()) {
