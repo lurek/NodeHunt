@@ -5,6 +5,7 @@ import SearchBox from '@/components/search/SearchBox.astro';
 import Pagination from '@/components/layout/Pagination.astro';
 import InlineArticleAd from '@/components/ads/InlineArticleAd.astro';
 import BottomBannerAd from '@/components/ads/BottomBannerAd.astro';
+import NewsletterForm from '@/components/newsletter/NewsletterForm';
 import { getPublishedSummaries } from '@/utils/content';
 import { siteConfig } from '@/config/site';
 
@@ -26,8 +27,48 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'No
   <InlineArticleAd />
   <section class="container section"><div class="section-head"><div><p class="eyebrow">Recent updates</p><h2>Signal, without the noise.</h2></div></div><div class="grid">{latest.map((post) => <ArticleCard {post} />)}</div></section>
   {totalPages > 1 && <section class="container"><Pagination current={1} total={totalPages} base="/" /></section>}
+  
+  <section class="container section">
+    <div class="calc-promo surface">
+      <div class="calc-promo-info">
+        <p class="eyebrow">Interactive Simulator</p>
+        <h2>Model your hardware &amp; DePIN yields.</h2>
+        <p>Estimate power draw, electricity overhead, and protocol rewards across leading decentralized compute and bandwidth networks.</p>
+        <a href="/calculator/" class="btn-calc">Launch Node Calculator →</a>
+      </div>
+      <div class="calc-promo-stats">
+        <div class="stat-badge"><span>⚡ H100 / A100 SXM</span><strong>$420–$850/mo</strong></div>
+        <div class="stat-badge"><span>🖥 RTX 4090 (24GB)</span><strong>$110/mo</strong></div>
+        <div class="stat-badge"><span>🌐 Mini PC / Pi 5</span><strong>$25/mo (&lt;15W)</strong></div>
+      </div>
+    </div>
+  </section>
+
   <BottomBannerAd />
   <section class="container split section"><div><p class="eyebrow">Trending research</p><h2>Start with the fundamentals.</h2><p class="muted">Clear operating models, security trade-offs, and direct paths to primary sources.</p></div><ol>{trending.map((post, index) => <li><span>0{index + 1}</span><a href={post.url}>{post.title}</a></li>)}</ol></section>
-  <section class="container newsletter surface"><p class="eyebrow">Newsletter · Coming soon</p><h2>One thoughtful infrastructure read at a time.</h2><p>Newsletter delivery is not enabled yet. Follow the research archive or use RSS in the meantime.</p><a href="/rss.xml">Subscribe by RSS →</a></section>
+  <section class="container newsletter surface">
+    <div class="newsletter-content">
+      <p class="eyebrow">NodeHunt Dispatch</p>
+      <h2>One thoughtful infrastructure read at a time.</h2>
+      <p>Receive unbiased technical analysis on Web3 nodes, DePIN developments, and protocol security straight to your inbox.</p>
+      <NewsletterForm client:load />
+      <div class="rss-link-wrap">
+        <span>Prefer feeds?</span> <a href="/rss.xml">Subscribe by RSS →</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
-<style>.hero { padding:clamp(4rem,10vw,8rem) 0 3rem; text-align:center; }.hero h1 { margin:.4rem auto 1rem; max-width:850px; font:800 clamp(2.7rem,7vw,6rem)/.98 var(--font-display); letter-spacing:-.06em; }.hero em { color:var(--accent); font-style:normal; }.hero > p:not(.eyebrow) { max-width:42rem; margin:0 auto 1.7rem; color:var(--muted); font-size:1.1rem; }.hero-search { max-width:39rem; margin:auto; }.hero-search :global(.search-box input) { padding:.95rem 1.15rem; font-size:1rem; border-radius:999px; box-shadow:0 8px 30px #00000014; }.section { margin-top:4rem; }.section-head { display:flex; align-items:end; justify-content:space-between; gap:1rem; margin-bottom:1.2rem; }.section-head h2,.split h2,.newsletter h2 { margin:.2rem 0; font:800 clamp(1.8rem,4vw,2.8rem)/1.1 var(--font-display); }.section-head a { color:var(--accent); }.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }.split { display:grid; grid-template-columns:1fr 1.3fr; gap:3rem; align-items:start; }.muted,.newsletter p { color:var(--muted); }.split ol { display:grid; gap:.75rem; margin:0; padding:0; list-style:none; }.split li { display:grid; grid-template-columns:3rem 1fr; gap:1rem; align-items:center; padding:1rem 0; border-bottom:1px solid var(--line); }.split li span { color:var(--accent); font:800 1.1rem var(--font-display); }.split li a { font:800 1.05rem/1.3 var(--font-display); text-decoration:none; }.newsletter { margin-top:4rem; padding:clamp(1.5rem,4vw,3rem); }.newsletter a { display:inline-block; margin-top:.5rem; border:0; border-radius:.6rem; background:var(--accent); color:#062219; padding:.65rem 1rem; font-weight:800; text-decoration:none; } @media(max-width:780px){.grid{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}}</style>
+<style>.hero { padding:clamp(4rem,10vw,8rem) 0 3rem; text-align:center; }.hero h1 { margin:.4rem auto 1rem; max-width:850px; font:800 clamp(2.7rem,7vw,6rem)/.98 var(--font-display); letter-spacing:-.06em; }.hero em { color:var(--accent); font-style:normal; }.hero > p:not(.eyebrow) { max-width:42rem; margin:0 auto 1.7rem; color:var(--muted); font-size:1.1rem; }.hero-search { max-width:39rem; margin:auto; }.hero-search :global(.search-box input) { padding:.95rem 1.15rem; font-size:1rem; border-radius:999px; box-shadow:0 8px 30px #00000014; }.section { margin-top:4rem; }.section-head { display:flex; align-items:end; justify-content:space-between; gap:1rem; margin-bottom:1.2rem; }.section-head h2,.split h2,.newsletter h2,.calc-promo-info h2 { margin:.2rem 0; font:800 clamp(1.8rem,4vw,2.8rem)/1.1 var(--font-display); }.section-head a { color:var(--accent); }.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }.split { display:grid; grid-template-columns:1fr 1.3fr; gap:3rem; align-items:start; }.muted,.newsletter p,.calc-promo-info p { color:var(--muted); }.split ol { display:grid; gap:.75rem; margin:0; padding:0; list-style:none; }.split li { display:grid; grid-template-columns:3rem 1fr; gap:1rem; align-items:center; padding:1rem 0; border-bottom:1px solid var(--line); }.split li span { color:var(--accent); font:800 1.1rem var(--font-display); }.split li a { font:800 1.05rem/1.3 var(--font-display); text-decoration:none; }
+.calc-promo { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:2rem; padding:clamp(2rem, 5vw, 3.5rem); background:linear-gradient(135deg, color-mix(in srgb, var(--surface) 95%, transparent), color-mix(in srgb, var(--surface-raised) 90%, transparent)); }
+.calc-promo-info { max-width:34rem; }
+.btn-calc { display:inline-block; margin-top:1rem; border-radius:.6rem; background:var(--accent); color:#062219; padding:.75rem 1.3rem; font-weight:800; text-decoration:none; transition:opacity .15s ease; }
+.btn-calc:hover { opacity:.9; }
+.calc-promo-stats { display:flex; flex-direction:column; gap:.75rem; min-width:240px; }
+.stat-badge { display:flex; justify-content:space-between; align-items:center; gap:1.25rem; padding:.8rem 1.1rem; border-radius:.6rem; background:var(--bg); border:1px solid var(--line); font-size:.9rem; }
+.stat-badge span { color:var(--muted); font-weight:600; }
+.stat-badge strong { color:var(--accent); font-weight:800; font-family:var(--font-display); }
+.newsletter { margin-top:4rem; padding:clamp(2rem,4vw,3.5rem); }
+.newsletter-content { max-width:40rem; }
+.rss-link-wrap { margin-top:1rem; font-size:.85rem; color:var(--muted); }
+.rss-link-wrap a { color:var(--accent); text-decoration:none; font-weight:700; margin-left:.35rem; }
+@media(max-width:780px){.grid{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}.calc-promo{flex-direction:column;align-items:flex-start}.calc-promo-stats{width:100%}}@media(max-width:520px){.grid{grid-template-columns:1fr}}</style>

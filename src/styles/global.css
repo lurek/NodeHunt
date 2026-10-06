@@ -64,6 +64,12 @@ button, input { font: inherit; }
 .prose a { color: var(--accent); }
 .prose blockquote { margin-inline: 0; padding: 1rem 1.25rem; border-left: 3px solid var(--accent); border-radius: .5rem; background: var(--surface-raised); color: var(--muted); }
 .prose pre { overflow-x: auto; padding: 1rem; border: 1px solid var(--line); border-radius: .75rem; background: #0b1020; }
+.code-block-wrapper { position: relative; margin-block: 1.5rem; }
+.code-block-wrapper pre { margin: 0; padding-top: 2.35rem; }
+.copy-code-btn { position: absolute; top: .55rem; right: .65rem; z-index: 5; display: inline-flex; align-items: center; gap: .35rem; padding: .25rem .55rem; font-size: .75rem; font-family: var(--font-body); font-weight: 600; color: var(--muted); background: color-mix(in srgb, var(--surface) 90%, transparent); border: 1px solid var(--line); border-radius: .4rem; cursor: pointer; transition: all .15s ease; user-select: none; }
+.copy-code-btn:hover { color: var(--text); border-color: var(--accent); background: var(--surface-raised); }
+.copy-code-btn.copied { color: var(--accent); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 15%, var(--surface)); }
+.reading-progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--accent), var(--violet)); z-index: 100; transition: width .08s ease-out; pointer-events: none; }
 .prose table { display: block; overflow-x: auto; width: 100%; border-collapse: collapse; }
 .prose th, .prose td { padding: .75rem; border: 1px solid var(--line); text-align: left; }
 .prose img { max-width: 100%; height: auto; border-radius: .9rem; margin-block: 1.5rem; }

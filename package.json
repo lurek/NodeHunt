@@ -12,6 +12,7 @@
     "check:links": "node src/scripts/check-links.mjs",
     "preview": "astro preview",
     "check": "astro check",
+    "indexnow:submit": "node src/scripts/submit-indexnow.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

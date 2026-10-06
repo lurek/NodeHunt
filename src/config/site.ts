@@ -11,6 +11,7 @@ export const navigation = [
   { label: 'Blog', href: '/blog/' },
   { label: 'Nodes', href: '/category/web3-nodes/' },
   { label: 'DePIN', href: '/category/depin/' },
+  { label: 'Calculator', href: '/calculator/' },
   { label: 'Security', href: '/category/security/' },
   { label: 'AI x Crypto', href: '/category/ai-x-blockchain/' },
 ] as const;

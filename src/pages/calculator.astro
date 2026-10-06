@@ -1,0 +1,173 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import NodeYieldCalculator from '@/components/calculator/NodeYieldCalculator';
+import TopBannerAd from '@/components/ads/TopBannerAd.astro';
+import BottomBannerAd from '@/components/ads/BottomBannerAd.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'NodeHunt Hardware & DePIN Yield Calculator',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'All',
+  description: 'Simulate hardware power draw, operating costs, and estimated network yields for crypto nodes and DePIN hardware.',
+  url: new URL('/calculator/', Astro.site).toString(),
+};
+---
+
+<BaseLayout
+  title="Node & DePIN Yield Calculator | Hardware Profitability Estimator"
+  description="Estimate monthly power costs, hardware profitability, and optimal protocol allocations for Web3 nodes, DePIN networks, and AI compute clusters."
+  jsonLd={jsonLd}
+>
+  <div class="container calc-page">
+    <header class="calc-header">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span aria-current="page">Calculator</span>
+      </nav>
+      <p class="eyebrow">Interactive Hardware Modeler</p>
+      <h1>Crypto Node &amp; DePIN<br /><em>Yield Calculator</em></h1>
+      <p class="dek">
+        Model power consumption, electricity overhead, and protocol rewards across leading decentralized physical infrastructure networks.
+      </p>
+    </header>
+
+    <NodeYieldCalculator client:load />
+
+    <section class="calc-guide surface">
+      <h2>How Node Yields and Power Sizing are Calculated</h2>
+      <div class="calc-grid">
+        <div class="calc-card">
+          <h3>1. Power &amp; Electricity Draw</h3>
+          <p>
+            Power cost is computed using average thermal design power (TDP) under real compute loads. A 24/7 node consumes <code>(Watts × 24 × 365) ÷ 12,000</code> kilowatt-hours per month.
+          </p>
+        </div>
+        <div class="calc-card">
+          <h3>2. Proof of Compute &amp; Tenancy</h3>
+          <p>
+            Decentralized compute networks like io.net and Akash pay a combination of availability uptime rewards and active rental fees when AI workloads lease your hardware.
+          </p>
+        </div>
+        <div class="calc-card">
+          <h3>3. Residential Bandwidth Scoring</h3>
+          <p>
+            For lightweight DePIN nodes (Grass, Dawn, Nodepay), bandwidth consumption is minimal, but maintaining continuous 24/7 uptime on low-power mini PCs is required to capture full epoch multipliers.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="calc-links">
+      <p>Related Research &amp; Guides:</p>
+      <div class="link-tags">
+        <a href="/articles/io-net-gpu-worker-setup-guide/">io.net GPU Worker Guide →</a>
+        <a href="/articles/akash-network-cloud-compute-guide/">Akash Network Cloud Guide →</a>
+        <a href="/articles/depin-node-airdrop-farming-guide/">DePIN Node Farming Blueprint →</a>
+      </div>
+    </div>
+
+    <BottomBannerAd />
+  </div>
+</BaseLayout>
+
+<style>
+  .calc-page {
+    padding-top: 2.5rem;
+    padding-bottom: 5rem;
+  }
+  .crumbs {
+    display: flex;
+    gap: .5rem;
+    color: var(--muted);
+    font-size: .85rem;
+    margin-bottom: 1.5rem;
+  }
+  .crumbs a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .calc-header {
+    text-align: center;
+    max-width: 50rem;
+    margin: 0 auto 2rem;
+  }
+  .calc-header h1 {
+    font: 800 clamp(2.4rem, 6vw, 4.5rem)/1.05 var(--font-display);
+    letter-spacing: -.04em;
+    margin: .3rem 0 1rem;
+  }
+  .calc-header em {
+    color: var(--accent);
+    font-style: normal;
+  }
+  .dek {
+    color: var(--muted);
+    font-size: 1.15rem;
+  }
+  .calc-guide {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    margin-top: 3rem;
+  }
+  .calc-guide h2 {
+    font: 800 1.6rem var(--font-display);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  .calc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .calc-card h3 {
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: .5rem;
+    color: var(--accent);
+  }
+  .calc-card p {
+    color: var(--muted);
+    font-size: .92rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .calc-card code {
+    background: var(--bg);
+    padding: .15rem .35rem;
+    border-radius: .3rem;
+    font-size: .85em;
+  }
+  .calc-links {
+    margin-top: 3rem;
+    text-align: center;
+  }
+  .calc-links p {
+    color: var(--muted);
+    font-size: .9rem;
+    font-weight: 700;
+    margin-bottom: .75rem;
+  }
+  .link-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .75rem;
+  }
+  .link-tags a {
+    padding: .5rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: .6rem;
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+    font-size: .9rem;
+    font-weight: 700;
+    transition: all .15s ease;
+  }
+  .link-tags a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+</style>
